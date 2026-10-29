@@ -1,0 +1,55 @@
+/* From Uiverse.io by ZacharyCrespin; scoped to the reusable React CTA. */
+.depth-button,
+.home-page .depth-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  transition:
+    background-color 0.5s,
+    color 0.5s,
+    box-shadow 0.5s,
+    transform 0.5s;
+  font:
+    500 17px/1.4 'Inter',
+    sans-serif;
+  letter-spacing: -0.02em;
+  text-transform: none;
+  text-decoration: none;
+  padding: 1ch 2ch;
+  margin: 0 18px 18px 0;
+  background-color: white;
+  color: #000;
+  cursor: pointer;
+  border: none;
+  border-radius: 2px;
+  box-shadow:
+    2px 2px 0 hsl(0, 0%, 90%),
+    4px 4px 0 hsl(0, 0%, 80%),
+    6px 6px 0 hsl(0, 0%, 70%),
+    8px 8px 0 hsl(0, 0%, 60%),
+    10px 10px 0 hsl(0, 0%, 50%),
+    12px 12px 0 hsl(0, 0%, 40%),
+    14px 14px 0 hsl(0, 0%, 30%),
+    16px 16px 0 hsl(0, 0%, 20%),
+    18px 18px 0 hsl(0, 0%, 10%);
+}
+.depth-button:hover,
+.home-page .depth-button:hover {
+  background-color: hsl(0, 0%, 50%);
+  color: #fff;
+  box-shadow: none;
+}
+.depth-button:focus-visible {
+  outline: 3px solid #ff5070;
+  outline-offset: 6px;
+}
+.depth-button:active {
+  transform: translate(3px, 3px);
+}
+@media (max-width: 767px) {
+  .depth-button,
+  .home-page .depth-button {
+    font-size: 14px;
+  }
+}

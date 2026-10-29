@@ -1,0 +1,208 @@
+.flight-zone {
+  position: relative;
+  width: min(720px, 100%);
+  height: clamp(280px, 42vh, 440px);
+  flex: 1 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  perspective: 800px;
+}
+.launch-pad {
+  position: absolute;
+  left: calc(50% - 100px);
+  top: 67%;
+  width: 200px;
+  height: 40px;
+  border-radius: 50%;
+  background: radial-gradient(ellipse, #63afff38, #63afff08 55%, transparent 70%);
+  filter: blur(7px);
+}
+.launch-orbit {
+  position: absolute;
+  width: 370px;
+  height: 105px;
+  top: 57%;
+  border: 1px solid #83b8ed19;
+  border-radius: 50%;
+  pointer-events: none;
+}
+.orbit-two {
+  width: 560px;
+  height: 155px;
+  top: 51%;
+  border-color: #83b8ed0b;
+}
+.flying-button {
+  position: relative;
+  z-index: 2;
+  padding: 0;
+  border: 0;
+  border-radius: 15px;
+  background: transparent;
+  color: #eaf3ff;
+  cursor: pointer;
+  transform: translate3d(0, 30px, 0);
+  transition: transform 0.85s cubic-bezier(0.2, 0.75, 0.25, 1);
+}
+.flight-button-face {
+  position: relative;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 28px;
+  min-width: 210px;
+  min-height: 68px;
+  padding: 18px 24px;
+  border: 1px solid #64778e;
+  border-radius: 15px;
+  background: linear-gradient(155deg, #354455, #131e2c 45%, #0c141e);
+  box-shadow:
+    inset 0 1px 0 #ffffff38,
+    0 7px 0 #060b12,
+    0 8px 0 #35475c,
+    0 22px 36px #0009;
+  font:
+    500 18px 'Inter',
+    sans-serif;
+  letter-spacing: -0.03em;
+}
+.flight-symbol {
+  color: #9ecfff;
+  font-size: 25px;
+}
+.flight-light {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #8ec5ff;
+  box-shadow: 0 0 10px #8ec5ff;
+}
+.flying-button.is-flying {
+  transform: translate3d(var(--pointer-x, 0px), calc(-1 * min(var(--altitude), 16vh)), 0);
+}
+.is-flying .flight-button-face {
+  animation: flight-wobble var(--hover-time) ease-in-out infinite;
+}
+.flying-button:focus-visible {
+  outline: 2px solid #8ec5ff;
+  outline-offset: 12px;
+}
+.thruster-bank {
+  position: absolute;
+  top: calc(100% - 3px);
+  left: 22%;
+  right: 22%;
+  display: flex;
+  justify-content: space-between;
+  pointer-events: none;
+}
+.thruster {
+  position: relative;
+  width: 23px;
+  height: 10px;
+  border-radius: 0 0 6px 6px;
+  background: linear-gradient(90deg, #080b10, #617080, #080b10);
+}
+.jet-flame {
+  position: absolute;
+  width: 18px;
+  height: 58px;
+  left: 2px;
+  top: 8px;
+  background: linear-gradient(#fff, var(--thrust) 24%, transparent 95%);
+  border-radius: 25% 25% 70% 70%;
+  filter: drop-shadow(0 0 8px var(--thrust));
+  transform-origin: top;
+  opacity: 0;
+}
+.is-flying .jet-flame {
+  opacity: 1;
+  animation: jet-flicker 0.16s alternate infinite;
+}
+.smoke-puff {
+  position: absolute;
+  top: 45px;
+  left: -7px;
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  background: var(--smoke);
+  filter: blur(12px);
+  opacity: 0;
+}
+.is-flying .smoke-puff {
+  animation: smoke-rise 1.2s ease-out infinite;
+}
+.flying-button.is-launching {
+  animation: launch-away 0.95s cubic-bezier(0.55, 0.02, 0.8, 0.5) forwards;
+  pointer-events: none;
+}
+.theme-light .flight-button-face {
+  background: linear-gradient(#fafcff, #b6c4d4);
+  color: #102236;
+}
+.size-small .flight-button-face {
+  min-width: 170px;
+  min-height: 54px;
+  font-size: 15px;
+}
+.size-large .flight-button-face {
+  min-width: 250px;
+  min-height: 78px;
+  font-size: 20px;
+}
+.has-ramp {
+  transition-duration: 1.2s;
+}
+@keyframes flight-wobble {
+  0%,
+  100% {
+    transform: rotate(calc(-1 * var(--wobble)));
+  }
+  50% {
+    transform: translateY(var(--turbulence)) rotate(var(--wobble));
+  }
+}
+@keyframes jet-flicker {
+  from {
+    transform: scaleY(0.8);
+  }
+  to {
+    transform: scaleY(1.1);
+  }
+}
+@keyframes smoke-rise {
+  0% {
+    opacity: var(--smoke-strength);
+    transform: translateY(0) scale(0.6);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(110px) scale(2.5);
+  }
+}
+@keyframes launch-away {
+  from {
+    transform: translate3d(var(--pointer-x, 0px), calc(-1 * min(var(--altitude), 16vh)), 0);
+    opacity: 1;
+  }
+  to {
+    transform: translate3d(30px, -110vh, 0) scale(0.55) rotate(-12deg);
+    opacity: 0;
+  }
+}
+@media (max-width: 600px) {
+  .flight-zone {
+    min-height: 280px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .flying-button.is-flying {
+    transform: none;
+  }
+  .flying-button.is-launching {
+    opacity: 0;
+  }
+}

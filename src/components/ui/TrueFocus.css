@@ -1,0 +1,12 @@
+.true-focus { display: block; position: relative; }
+.true-focus-words { display: flex; flex-wrap: wrap; align-items: baseline; gap: .24em; }
+.true-focus-word { display: inline-block; filter: blur(var(--focus-blur)); opacity: var(--focus-opacity); transition: filter var(--focus-duration) var(--focus-easing), opacity var(--focus-duration), transform var(--focus-duration); }
+.true-focus-word.is-focused { filter: blur(0); opacity: 1; transform: scale(var(--focus-scale)); }
+.true-focus-frame { position: absolute; left: 0; top: 0; pointer-events: none; transition: transform var(--focus-duration) var(--focus-easing), width var(--focus-duration) var(--focus-easing), height var(--focus-duration) var(--focus-easing); }
+.true-focus-frame i { position: absolute; width: var(--focus-corner); height: var(--focus-corner); border: 0 solid var(--focus-border); filter: drop-shadow(0 0 6px var(--focus-highlight)); }
+.true-focus-frame i:nth-child(1) { top: 0; left: 0; border-top-width: var(--focus-border-width); border-left-width: var(--focus-border-width); }
+.true-focus-frame i:nth-child(2) { top: 0; right: 0; border-top-width: var(--focus-border-width); border-right-width: var(--focus-border-width); }
+.true-focus-frame i:nth-child(3) { bottom: 0; left: 0; border-bottom-width: var(--focus-border-width); border-left-width: var(--focus-border-width); }
+.true-focus-frame i:nth-child(4) { bottom: 0; right: 0; border-bottom-width: var(--focus-border-width); border-right-width: var(--focus-border-width); }
+.true-focus.is-static .true-focus-word { filter: none; opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) { .true-focus-word { filter: none; opacity: 1; transform: none; } .true-focus-frame { display: none; } }

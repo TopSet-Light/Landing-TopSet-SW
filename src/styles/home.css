@@ -1,0 +1,172 @@
+.home-page {
+  animation: home-arrive 0.65s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+@keyframes home-arrive {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.home-page main {
+  padding-top: 0;
+}
+.home-page main > section:first-child {
+  height: 100svh;
+  min-height: 620px;
+}
+/* Same background as the take-off splash (welcome.css .intro) */
+.home-page .hero-section {
+  background: radial-gradient(ellipse at 50% 70%, #14283e 0, #0c121c 30%, #080b10 66%);
+}
+.home-page main > section:first-child > .relative {
+  width: 90%;
+}
+.home-page h1 {
+  font:
+    600 clamp(36px, 5.5vw, 88px)/1.03 'Space Grotesk',
+    sans-serif;
+  letter-spacing: -0.055em;
+  text-transform: none;
+  text-wrap: balance;
+}
+.home-page main > section:first-child p {
+  font-family: 'Inter', sans-serif;
+  color: #b4b4b8;
+  max-width: 580px;
+}
+.home-page h2,
+.home-page h3 {
+  font-family: 'Space Grotesk', sans-serif;
+  letter-spacing: -0.045em;
+  text-wrap: balance;
+}
+.home-page section[id] {
+  scroll-margin-top: 100px;
+}
+@media (max-width: 767px) {
+  .home-page main > section:first-child > .relative {
+    width: 100%;
+    padding: 24px;
+  }
+  .home-page h1 {
+    font-size: clamp(34px, 10vw, 58px);
+  }
+  .home-page header img {
+    display: none;
+  }
+}
+#sobre-nosotros h2 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: clamp(38px, 4.6vw, 68px);
+  font-weight: 500;
+  line-height: 1.08;
+  letter-spacing: -0.055em;
+  text-transform: none;
+}
+#sobre-nosotros p {
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(16px, 1.3vw, 19px);
+  line-height: 1.85;
+  letter-spacing: -0.015em;
+  color: #50504c;
+  max-width: 52ch;
+}
+#sobre-nosotros .font-headline-sm {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: clamp(18px, 1.5vw, 23px);
+  font-weight: 500;
+  line-height: 1.35;
+  letter-spacing: -0.035em;
+}
+#sobre-nosotros .font-label-sm {
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.07em;
+  line-height: 1.6;
+}
+#sobre-nosotros .group {
+  padding-top: 22px;
+  padding-bottom: 22px;
+  transition:
+    background-color 0.4s,
+    box-shadow 0.4s,
+    transform 0.4s;
+}
+#sobre-nosotros .group:hover {
+  transform: translateY(-3px);
+}
+#sobre-nosotros img {
+  transition: transform 0.9s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+/* Brand title, top right (same type as the splash .intro-brand) */
+.home-page .home-brand {
+  position: absolute;
+  top: 28px;
+  right: 4vw;
+  z-index: 20;
+  font:
+    600 25px 'Space Grotesk',
+    sans-serif;
+  letter-spacing: -0.06em;
+  color: #e5e2e1;
+  user-select: none;
+}
+.home-page .home-brand span {
+  margin-left: 4px;
+  font-size: 13px;
+  vertical-align: super;
+}
+@media (max-width: 600px) {
+  .home-page .home-brand {
+    top: 24px;
+    right: 22px;
+    font-size: 20px;
+  }
+}
+/* Scroll reveal (class added by useScrollReveal) */
+.home-page .reveal {
+  opacity: 0;
+  transform: translateY(48px);
+  transition:
+    opacity 0.8s cubic-bezier(0.2, 0.7, 0.2, 1),
+    transform 0.8s cubic-bezier(0.2, 0.7, 0.2, 1);
+  will-change: opacity, transform;
+}
+.home-page .reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+/* Hero fades gently as the page scrolls (progressive enhancement) */
+@supports (animation-timeline: scroll()) {
+  .home-page .hero-section > .relative {
+    animation: hero-scroll-out linear both;
+    animation-timeline: scroll(root block);
+    animation-range: 0 80svh;
+  }
+  @keyframes hero-scroll-out {
+    to {
+      opacity: 0;
+      transform: translateY(-60px);
+    }
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .animate-pulse {
+    animation: none !important;
+  }
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0s !important;
+    animation-duration: 0s !important;
+  }
+}
