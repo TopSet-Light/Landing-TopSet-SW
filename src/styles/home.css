@@ -45,7 +45,7 @@
   text-wrap: balance;
 }
 .home-page section[id] {
-  scroll-margin-top: 100px;
+  scroll-margin-top: 0;
 }
 @media (max-width: 767px) {
   .home-page main > section:first-child > .relative {
@@ -128,34 +128,106 @@
     font-size: 20px;
   }
 }
-/* Scroll reveal (class added by useScrollReveal) */
-.home-page .reveal {
+/* Scroll reveal (class added by useScrollReveal). Animate the section's inner
+   content only: translating the section box left a gap over the dark page body,
+   which read as a black band while scrolling between the light sections. */
+.home-page .reveal > * {
   opacity: 0;
-  transform: translateY(48px);
+  transform: translateY(16px);
   transition:
-    opacity 0.8s cubic-bezier(0.2, 0.7, 0.2, 1),
-    transform 0.8s cubic-bezier(0.2, 0.7, 0.2, 1);
-  will-change: opacity, transform;
+    opacity 0.7s cubic-bezier(0.2, 0.7, 0.2, 1),
+    transform 0.7s cubic-bezier(0.2, 0.7, 0.2, 1);
 }
-.home-page .reveal.is-visible {
+.home-page .reveal.is-visible > * {
   opacity: 1;
   transform: none;
 }
-/* Hero fades gently as the page scrolls (progressive enhancement) */
+/* Scroll cue at the bottom of the hero: invites the visitor down to projects */
+.home-page .hero-scroll-cue {
+  position: absolute;
+  left: 50%;
+  bottom: 28px;
+  z-index: 20;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  min-width: 44px;
+  padding: 6px 10px;
+  transform: translateX(-50%);
+  color: #b4b4b8;
+  font:
+    700 10px/1 'Space Mono',
+    monospace;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: color 0.25s;
+}
+.home-page .hero-scroll-cue:hover,
+.home-page .hero-scroll-cue:focus-visible {
+  color: #fff;
+}
+.home-page .hero-scroll-cue:focus-visible {
+  outline: 2px solid #8ec5ff;
+  outline-offset: 4px;
+}
+.home-page .hero-scroll-cue-line {
+  position: relative;
+  width: 1px;
+  height: 44px;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.15);
+}
+.home-page .hero-scroll-cue-line::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 1px;
+  height: 45%;
+  background: currentColor;
+  animation: hero-scroll-cue 1.8s cubic-bezier(0.6, 0, 0.3, 1) infinite;
+}
+@keyframes hero-scroll-cue {
+  from {
+    transform: translateY(-100%);
+  }
+  to {
+    transform: translateY(230%);
+  }
+}
+@media (max-height: 680px) {
+  .home-page .hero-scroll-cue {
+    bottom: 14px;
+  }
+  .home-page .hero-scroll-cue-line {
+    height: 28px;
+  }
+}
+/* Hero content eases out while scrolling toward projects (progressive enhancement) */
 @supports (animation-timeline: scroll()) {
-  .home-page .hero-section > .relative {
+  .home-page .hero-section > .relative,
+  .home-page .hero-scroll-cue {
     animation: hero-scroll-out linear both;
     animation-timeline: scroll(root block);
-    animation-range: 0 80svh;
+    animation-range: 0 70svh;
   }
   @keyframes hero-scroll-out {
     to {
-      opacity: 0;
-      transform: translateY(-60px);
+      opacity: 0.15;
+      translate: 0 -40px;
     }
   }
 }
 @media (prefers-reduced-motion: reduce) {
+  .home-page .hero-section > .relative,
+  .home-page .hero-scroll-cue {
+    animation: none;
+  }
+  .home-page .hero-scroll-cue-line::after {
+    display: none;
+  }
   html {
     scroll-behavior: auto;
   }

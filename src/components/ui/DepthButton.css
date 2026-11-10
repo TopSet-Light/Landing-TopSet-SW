@@ -18,6 +18,7 @@
   text-decoration: none;
   padding: 1ch 2ch;
   margin: 0 18px 18px 0;
+  min-height: 46px;
   background-color: white;
   color: #000;
   cursor: pointer;

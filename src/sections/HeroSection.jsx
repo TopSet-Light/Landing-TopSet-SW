@@ -40,7 +40,10 @@ export default function HeroSection() {
         TOPSET-SOFTWARE<span>®</span>
       </span>
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 select-none pointer-events-none z-0">
-        <span className="font-headline-xl font-black tracking-tighter text-[22vw] leading-none uppercase text-white/[0.035] block whitespace-nowrap">
+        <span
+          aria-hidden="true"
+          className="font-headline-xl font-black tracking-tighter text-[22vw] leading-none uppercase text-white/[0.035] block whitespace-nowrap"
+        >
           TOPSET
         </span>
       </div>
@@ -83,6 +86,10 @@ export default function HeroSection() {
           </DepthButton>
         </div>
       </div>
+      <a className="hero-scroll-cue" href="#proyectos" aria-label="Bajar a proyectos">
+        <span>Proyectos</span>
+        <span className="hero-scroll-cue-line" aria-hidden="true" />
+      </a>
     </section>
   );
 }

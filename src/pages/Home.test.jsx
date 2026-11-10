@@ -39,9 +39,13 @@ describe('Home navigation and content', () => {
     },
   );
 
-  it('preserves the six projects and navigation destinations', () => {
+  it('preserves the six projects, their demo actions and navigation destinations', () => {
     render(<Home />);
-    expect(screen.getAllByRole('article')).toHaveLength(6);
+    const articles = screen.getAllByRole('article');
+    expect(articles).toHaveLength(6);
+    for (const article of articles) {
+      expect(within(article).getByText(/demo próximamente|ver demo/i)).toBeTruthy();
+    }
     for (const link of within(screen.getByRole('navigation')).getAllByRole('link')) {
       expect(document.getElementById(link.hash.slice(1))).not.toBeNull();
     }

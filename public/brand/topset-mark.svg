@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 168 144" role="img" aria-label="topset-software">
+  <!--
+    Grilla: margen 18 en los cuatro lados, trazos de 22-24, franja diagonal de 10
+    (perpendicular) y todas las diagonales a 45° (x + y = constante).
+  -->
+  <defs>
+    <clipPath id="ts-box">
+      <rect width="168" height="144" rx="14" />
+    </clipPath>
+  </defs>
+  <g clip-path="url(#ts-box)">
+    <path fill="#141517" d="M0 0H134L102 32H168V144H0Z" />
+    <path fill="#22b05a" d="M144 0H168V24H120Z" />
+  </g>
+  <path fill="#ffffff" d="M18 18H102L66 54V102L42 126V42H18Z" />
+  <path
+    fill="#ffffff"
+    d="M92 42H150V64H105Q99 64 99 67Q99 70 103 70.5L150 89.5V108Q150 126 132 126H56L78 104H118Q124 104 124 101Q124 98 119 97L82 82.5Q76 80 76 74V58Z"
+  />
+</svg>

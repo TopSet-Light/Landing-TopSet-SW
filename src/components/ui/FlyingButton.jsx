@@ -23,6 +23,9 @@ export default function FlyingButton({
 }) {
   const [isHovered, setHovered] = useState(false);
   const buttonRef = useRef(null);
+  // Last pointer that touched the zone. On touch screens the "hover" lift would move
+  // the button ~130px up mid-tap, so the tap lands on empty space and nothing happens.
+  const lastPointerType = useRef('');
   const isFlying = isHovered || launching;
   function resetPointer() {
     setHovered(false);
@@ -31,8 +34,12 @@ export default function FlyingButton({
   return (
     <div
       className="flight-zone"
-      onPointerEnter={() => {
-        if (trigger === 'hover') setHovered(true);
+      onPointerDownCapture={(event) => {
+        lastPointerType.current = event.pointerType;
+      }}
+      onPointerEnter={(event) => {
+        lastPointerType.current = event.pointerType;
+        if (trigger === 'hover' && event.pointerType !== 'touch') setHovered(true);
         onIntent?.();
       }}
       onPointerLeave={resetPointer}
@@ -55,10 +62,13 @@ export default function FlyingButton({
         aria-label="Entrar al sitio de TOPSET Studio"
         aria-disabled={launching}
         onFocus={() => {
-          setHovered(true);
+          if (lastPointerType.current !== 'touch') setHovered(true);
           onIntent?.();
         }}
-        onBlur={resetPointer}
+        onBlur={() => {
+          lastPointerType.current = '';
+          resetPointer();
+        }}
         onPointerMove={(event) => {
           if (!carryCursor || launching || event.pointerType === 'touch') return;
           const bounds = event.currentTarget.parentElement.getBoundingClientRect();

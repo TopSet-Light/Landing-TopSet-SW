@@ -1,3 +1,7 @@
+/**
+ * `demoUrl` is the public demo or live site for a project. While it is null the
+ * card renders "Demo próximamente" instead of a dead link.
+ */
 export const featuredProjects = [
   {
     id: 'fintech',
@@ -12,6 +16,7 @@ export const featuredProjects = [
     imageAlt: 'Plataforma Fintech',
     image: '/images/projects/fintech.webp',
     number: '01',
+    demoUrl: null,
   },
   {
     id: 'analytics',
@@ -25,6 +30,7 @@ export const featuredProjects = [
     imageAlt: 'Sistema ERP Cloud',
     image: '/images/projects/analytics.webp',
     number: '02',
+    demoUrl: null,
   },
 ];
 export const demoProjects = [
@@ -37,6 +43,7 @@ export const demoProjects = [
       'Concepto de tienda para una marca de diseño: catálogo filtrable, variantes de producto, carrito y seguimiento de pedidos.',
     features: ['Catálogo y filtros', 'Carrito de compras', 'Panel de pedidos'],
     image: '/images/projects/commerce.webp',
+    demoUrl: null,
     theme: 'peach',
     label: 'FORMA / OBJECTS',
     headline: 'Objetos para vivir mejor.',
@@ -51,6 +58,7 @@ export const demoProjects = [
     description:
       'Ejemplo de portal de turnos con búsqueda por especialidad, selección de horarios y gestión de reservas con datos ficticios.',
     features: ['Agenda por profesional', 'Reserva de turnos', 'Recordatorios'],
+    demoUrl: null,
     theme: 'mint',
     label: 'AURA / TU ESPACIO',
     headline: 'Tu próximo turno, más cerca.',
@@ -65,6 +73,7 @@ export const demoProjects = [
     description:
       'Concepto de tablero logístico para organizar entregas, asignar recorridos y consultar el estado de cada envío con información simulada.',
     features: ['Planificación de rutas', 'Estado de entregas', 'Gestión de flota'],
+    demoUrl: null,
     theme: 'blue',
     label: 'RUTA / CONTROL CENTER',
     headline: 'Cada envío, bajo control.',
@@ -79,6 +88,7 @@ export const demoProjects = [
     description:
       'Ejemplo de campus digital con cursos, lecciones, seguimiento del progreso y un espacio para organizar contenidos educativos.',
     features: ['Biblioteca de cursos', 'Progreso por lección', 'Panel docente'],
+    demoUrl: null,
     theme: 'lilac',
     label: 'ÓRBITA / APRENDÉ ALGO NUEVO',
     headline: 'Tu siguiente gran idea empieza acá.',
