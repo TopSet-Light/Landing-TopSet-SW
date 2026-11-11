@@ -1,6 +1,6 @@
-﻿# TOPSET-SW
+# TOPSET-SW
 
-Landing page de un estudio de software, construida con React y Vite. Presenta una bienvenida interactiva con un botón de despegue, seguida de un portafolio de seis proyectos, información del equipo y enlaces de contacto.
+Landing page de un estudio de software, construida con React y Vite. Presenta una bienvenida interactiva con un botón de despegue, seguida de un portafolio de seis proyectos, información del equipo y un formulario de contacto que envía la consulta por email.
 
 El proyecto explora transiciones CSS, tipografía adaptable y composición de interfaces. Es una aplicación frontend: Node.js ejecuta las herramientas de desarrollo y compilación; no hay servidor de negocio ni base de datos.
 
@@ -8,7 +8,7 @@ El proyecto explora transiciones CSS, tipografía adaptable y composición de in
 
 Después de iniciar el servidor, abrí [la demo local](http://127.0.0.1:5173). Si ese puerto está ocupado, usá la dirección que indique Vite.
 
-1. Pasá el cursor sobre **Take off**, o enfocá el botón con Tab.
+1. Pasá el cursor sobre **Take off**, o enfocá el botón con Tab. En pantallas táctiles el botón no se eleva al tocarlo: el toque despega directo.
 2. Hacé clic, tocá el botón o activalo con el teclado para entrar.
 3. Recorré Proyectos, Sobre nosotros y Contacto.
 4. Al refrescar vuelve a aparecer la bienvenida. Si la URL contiene un hash, su sección se abre después del despegue.
@@ -82,7 +82,7 @@ src/
   pages/                     Welcome y Home
   sections/                  Hero, proyectos, nosotros y contacto
   hooks/                     Coordinación de la transición de entrada
-  utils/                     Carga compartida de módulos con reintento
+  utils/                     Carga compartida con reintento, envío a Web3Forms y armado del mailto
   data/                      Catálogo de proyectos y navegación
   styles/                    Estilos globales y de páginas
 ```
@@ -93,7 +93,9 @@ Los tests viven junto al módulo que verifican. Los componentes usan PascalCase;
 
 - **Carga bajo demanda:** el home se importa al mostrar intención de entrar o al activar el botón. La precarga y el clic comparten la misma promesa; una carga fallida libera la referencia para permitir otro intento.
 - **Entrada coordinada:** el home aparece cuando terminan la carga y la animación. Con movimiento reducido no se espera el final de una animación deshabilitada.
-- **Navegación por anclas:** una landing de una sola página no necesita un router. El hash se conserva durante la bienvenida y se resuelve al montar el home.
+- **Navegación por anclas:** una landing de una sola página no necesita un router. El hash se conserva durante la bienvenida y se resuelve al montar el home. Las secciones no llevan `scroll-margin` porque no hay encabezado fijo.
+- **Contacto sin backend propio:** el formulario valida nombre, email y mensaje y lo envía a `topsetsoftware@gmail.com` mediante [Web3Forms](https://web3forms.com) (plan gratuito), con un campo trampa contra bots. Si no hay clave configurada, compone un enlace `mailto:` y el envío ocurre en el cliente de correo de quien escribe.
+- **Demos configurables:** cada proyecto tiene `demoUrl` en `src/data/projects.js`. Mientras sea `null`, la card muestra «Demo próximamente» en lugar de un enlace muerto; al cargar la URL, el botón abre la demo en otra pestaña.
 - **Separación de responsabilidades:** los datos del catálogo están separados de las tarjetas y la lógica de entrada está separada de la presentación.
 - **CSS conservado:** los estilos se organizan por responsabilidad y mantienen los valores visuales existentes. Los estilos del home se cargan con su módulo.
 - **Recursos visuales:** las tres fotografías de proyectos son WebP locales con dimensiones declaradas y carga diferida. Las fuentes, los símbolos y dos imágenes del sitio siguen usando servicios externos.
@@ -103,21 +105,20 @@ FlyingButton es una implementación propia compatible con la API usada por esta 
 
 ## Variables de entorno
 
-Actualmente no se requiere ninguna. `.env.example` documenta esta decisión y no contiene credenciales.
+- `VITE_WEB3FORMS_ACCESS_KEY`: clave de Web3Forms para el formulario de contacto. Es pública por diseño (solo permite enviar a la casilla con la que se creó). Copiá `.env.example` como `.env` y completala; en el hosting, cargala como variable de entorno del build. Sin clave, el formulario usa `mailto:`.
 
 Los textos y enlaces públicos viven en componentes o archivos de datos; no son secretos. Si se agrega una integración en el futuro, las variables `VITE_*` se incorporan al código público del navegador y no deben contener claves privadas.
 
 ## Pruebas y límites
 
-Las pruebas cubren la bienvenida al recargar, entrada después de la animación, movimiento reducido, foco, destinos por hash, seis tarjetas, bloqueo de clics durante el despegue, filtrado de eventos de animación y carga compartida con reintento.
+Las pruebas cubren la bienvenida al recargar, entrada después de la animación, movimiento reducido, foco, destinos por hash, seis tarjetas con su acción de demo, bloqueo de clics durante el despegue, filtrado de eventos de animación, carga compartida con reintento, validación del formulario de contacto, envío a Web3Forms con su error y campo trampa, composición del enlace `mailto:` y toque en pantallas táctiles sobre el botón de despegue.
 
 jsdom no dibuja la página: estas pruebas no sustituyen una revisión visual en escritorio y móvil, ni miden fluidez, tiempos de red o Core Web Vitals.
 
 Pendientes conservados durante la refactorización:
 
-- Los enlaces de casos destacados usan `#`; los enlaces sociales son genéricos.
+- Las demos se muestran como «Demo próximamente» hasta cargar `demoUrl`; los enlaces sociales siguen siendo genéricos.
 - La navegación marca Proyectos como activo de forma fija.
-- Hay utilidades heredadas como `p-4.5` y `hover:scale-102` sin definición en la configuración actual.
 - Las variantes de marca, textos comerciales, métricas y copyright necesitan validación editorial antes de publicar.
 - Falta incorporar una demo pública o capturas reales.
 

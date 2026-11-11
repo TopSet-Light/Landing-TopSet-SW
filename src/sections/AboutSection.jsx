@@ -1,7 +1,7 @@
 export default function AboutSection() {
   return (
     <section
-      className="w-full bg-[#ece9df] text-[#0a0a0a] py-[120px] px-margin-mobile lg:px-[8vw]"
+      className="w-full bg-[#ece9df] text-[#0a0a0a] py-16 sm:py-20 lg:py-[120px] px-margin-mobile lg:px-[8vw]"
       id="sobre-nosotros"
     >
       <div className="max-w-[1240px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
@@ -22,7 +22,7 @@ export default function AboutSection() {
           </div>
           <div className="flex flex-col gap-3">
             <a
-              className="group bg-white rounded-xl p-4.5 px-6 shadow-[0_4px_15px_rgba(0,0,0,0.04)] hover:shadow-[0_8px_25px_rgba(0,0,0,0.08)] flex items-center justify-between transition-all"
+              className="group bg-white rounded-xl px-6 shadow-[0_4px_15px_rgba(0,0,0,0.04)] hover:shadow-[0_8px_25px_rgba(0,0,0,0.08)] flex items-center justify-between transition-all"
               href="https://github.com"
               rel="noopener noreferrer"
               target="_blank"
@@ -45,7 +45,7 @@ export default function AboutSection() {
               </div>
             </a>
             <a
-              className="group bg-white rounded-xl p-4.5 px-6 shadow-[0_4px_15px_rgba(0,0,0,0.04)] hover:shadow-[0_8px_25px_rgba(0,0,0,0.08)] flex items-center justify-between transition-all"
+              className="group bg-white rounded-xl px-6 shadow-[0_4px_15px_rgba(0,0,0,0.04)] hover:shadow-[0_8px_25px_rgba(0,0,0,0.08)] flex items-center justify-between transition-all"
               href="https://linkedin.com"
               rel="noopener noreferrer"
               target="_blank"
@@ -67,7 +67,7 @@ export default function AboutSection() {
                 <span className="material-symbols-outlined text-base">north_east</span>
               </div>
             </a>
-            <div className="group bg-white rounded-xl p-4.5 px-6 shadow-[0_4px_15px_rgba(0,0,0,0.04)] hover:shadow-[0_8px_25px_rgba(0,0,0,0.08)] flex items-center justify-between transition-all cursor-default">
+            <div className="group bg-white rounded-xl px-6 shadow-[0_4px_15px_rgba(0,0,0,0.04)] hover:shadow-[0_8px_25px_rgba(0,0,0,0.08)] flex items-center justify-between transition-all cursor-default">
               <div className="flex items-center gap-4">
                 <div className="w-10 h-10 rounded-lg bg-[#0a0a0a] text-white flex items-center justify-center shrink-0">
                   <span className="material-symbols-outlined text-xl">rocket_launch</span>
@@ -81,8 +81,10 @@ export default function AboutSection() {
                   </span>
                 </div>
               </div>
-              <div className="w-8 h-8 rounded-full bg-[#f3f3f1] flex items-center justify-center">
-                <span className="material-symbols-outlined text-base text-[#0a0a0a]">done_all</span>
+              <div className="w-8 h-8 rounded-full bg-[#f3f3f1] group-hover:bg-[#0a0a0a] flex items-center justify-center transition-colors">
+                <span className="material-symbols-outlined text-base text-[#0a0a0a] group-hover:text-white transition-colors">
+                  done_all
+                </span>
               </div>
             </div>
           </div>
@@ -93,24 +95,9 @@ export default function AboutSection() {
               loading="lazy"
               decoding="async"
               alt="Equipo de ingeniería Topset Studio trabajando en software"
-              className="w-full h-[500px] object-cover grayscale contrast-125 hover:scale-102 transition-transform duration-500"
+              className="w-full h-[320px] sm:h-[420px] lg:h-[500px] object-cover grayscale contrast-125 hover:scale-[1.02] transition-transform duration-500"
               src="https://lh3.googleusercontent.com/aida-public/AB6AXuB63h_P0zrwCaEz8BUsq60tGU-gw78ZrvcnwNsme08haSGJsUNRCQxlh7WdAjo7RCg7Y5U-h5CXNBsm5qM97dkVQUiNqHX3MLnmn2XMhmBvCc5g8MdSDYGQyZzbAUDQf_53VLrjj8gMGtLcriXBGGFEHrqJhE_L6exRTTacD3QD6SbI_jTY0djp4FLQFDlwSms2MU4IrnGewiSiQ-HCFEtjGGSM5qZxFKGR3Pae8Ni9"
             />
-            <a
-              className="absolute top-5 right-5 w-12 h-12 rounded-full bg-white text-[#0a0a0a] shadow-lg flex items-center justify-center font-headline-sm text-xl font-bold hover:bg-[#0a0a0a] hover:text-white transition-all transform hover:scale-110"
-              href="https://linkedin.com"
-              rel="noopener noreferrer"
-              target="_blank"
-              title="Ver en LinkedIn"
-            >
-              in
-            </a>
-            <div className="absolute bottom-5 left-5 bg-[#0a0a0a]/90 backdrop-blur-md px-4 py-2 rounded-lg border border-white/10 flex items-center gap-2 text-white">
-              <span className="w-2 h-2 rounded-full bg-primary-container" />
-              <span className="font-label-sm text-label-sm uppercase tracking-widest text-white/90">
-                TOPSET HQ · MADRID / REMOTO
-              </span>
-            </div>
           </div>
         </div>
       </div>

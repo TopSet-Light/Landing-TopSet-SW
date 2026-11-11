@@ -1,3 +1,5 @@
+import ProjectDemoButton from './ProjectDemoButton.jsx';
+
 export default function DemoProjectCard({ project, index }) {
   const number = String(index + 3).padStart(2, '0');
   return (
@@ -21,9 +23,14 @@ export default function DemoProjectCard({ project, index }) {
             <li key={feature}>{feature}</li>
           ))}
         </ul>
-        <a className="demo-project-contact" href="#contacto">
-          Quiero un proyecto así<span aria-hidden={true}>↗</span>
-        </a>
+        <div className="demo-project-actions">
+          <ProjectDemoButton project={project} />
+          <a className="demo-project-contact" href="#contacto">
+            <span className="demo-project-contact-label">
+              Quiero un proyecto así <span aria-hidden={true}>↗</span>
+            </span>
+          </a>
+        </div>
       </div>
       <div className={`demo-project-art demo-theme-${project.theme}`} aria-hidden={true}>
         {project.image && (

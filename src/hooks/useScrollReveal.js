@@ -19,7 +19,7 @@ export default function useScrollReveal(selector = 'main > section:not(:first-ch
           observer.unobserve(entry.target);
         }
       },
-      { threshold: 0.12, rootMargin: '0px 0px -8% 0px' },
+      { threshold: 0.05, rootMargin: '0px 0px -5% 0px' },
     );
     targets.forEach((element) => {
       element.classList.add('reveal');
@@ -31,4 +31,3 @@ export default function useScrollReveal(selector = 'main > section:not(:first-ch
     };
   }, [selector]);
 }
-

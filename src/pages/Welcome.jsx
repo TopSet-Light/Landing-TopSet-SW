@@ -5,7 +5,16 @@ export default function Welcome({ launching, error, onEnter, onIntent, onFlightE
     <main className={`intro${launching ? ' is-departing' : ''}`}>
       <header className="intro-header">
         <span className="intro-brand">
-          TOPSET-SW<span>®</span>
+          <img
+            className="intro-brand-mark"
+            src="/brand/topset-mark.svg"
+            alt=""
+            width={168}
+            height={144}
+          />
+          <span className="intro-brand-text">
+            TOPSET-SW<span>®</span>
+          </span>
         </span>
       </header>
       <div className="intro-copy">
