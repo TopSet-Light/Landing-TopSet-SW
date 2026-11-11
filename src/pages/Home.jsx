@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import SiteFooter from '../components/layout/SiteFooter.jsx';
+import SiteHeader from '../components/layout/SiteHeader.jsx';
 import HeroSection from '../sections/HeroSection.jsx';
 import ProjectsSection from '../sections/ProjectsSection.jsx';
 import AboutSection from '../sections/AboutSection.jsx';
@@ -20,6 +21,7 @@ export default function Home() {
   }, []);
   return (
     <div className="home-page bg-surface font-body-md text-on-surface antialiased">
+      <SiteHeader />
       <main>
         <HeroSection />
         <ProjectsSection />

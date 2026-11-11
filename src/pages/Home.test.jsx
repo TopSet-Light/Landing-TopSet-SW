@@ -39,6 +39,11 @@ describe('Home navigation and content', () => {
     },
   );
 
+  it('names the browser tab after the current section', () => {
+    render(<Home />);
+    expect(document.title).toBe('Inicio · TOPSET');
+  });
+
   it('preserves the six projects, their demo actions and navigation destinations', () => {
     render(<Home />);
     const articles = screen.getAllByRole('article');
@@ -46,8 +51,10 @@ describe('Home navigation and content', () => {
     for (const article of articles) {
       expect(within(article).getByText(/demo próximamente|ver demo/i)).toBeTruthy();
     }
-    for (const link of within(screen.getByRole('navigation')).getAllByRole('link')) {
-      expect(document.getElementById(link.hash.slice(1))).not.toBeNull();
+    for (const nav of screen.getAllByRole('navigation', { hidden: true })) {
+      for (const link of within(nav).getAllByRole('link', { hidden: true })) {
+        expect(document.getElementById(link.hash.slice(1))).not.toBeNull();
+      }
     }
     expect(screen.getAllByText('DEMO')).toHaveLength(4);
   });

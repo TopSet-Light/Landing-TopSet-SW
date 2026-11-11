@@ -21,12 +21,8 @@ export default function AboutSection() {
             <span className="flex-1 h-px bg-black/10" />
           </div>
           <div className="flex flex-col gap-3">
-            <a
-              className="group bg-white rounded-xl px-6 shadow-[0_4px_15px_rgba(0,0,0,0.04)] hover:shadow-[0_8px_25px_rgba(0,0,0,0.08)] flex items-center justify-between transition-all"
-              href="https://github.com"
-              rel="noopener noreferrer"
-              target="_blank"
-            >
+            {/* Sin destino por ahora: cuando haya perfil real, volver a <a href=... target="_blank"> */}
+            <div className="group bg-white rounded-xl px-6 shadow-[0_4px_15px_rgba(0,0,0,0.04)] hover:shadow-[0_8px_25px_rgba(0,0,0,0.08)] flex items-center justify-between transition-all cursor-default">
               <div className="flex items-center gap-4">
                 <div className="w-10 h-10 rounded-lg bg-[#0a0a0a] text-white flex items-center justify-center shrink-0">
                   <span className="material-symbols-outlined text-xl">terminal</span>
@@ -43,16 +39,27 @@ export default function AboutSection() {
               <div className="w-8 h-8 rounded-full bg-[#f3f3f1] group-hover:bg-[#0a0a0a] group-hover:text-white flex items-center justify-center transition-colors">
                 <span className="material-symbols-outlined text-base">north_east</span>
               </div>
-            </a>
-            <a
-              className="group bg-white rounded-xl px-6 shadow-[0_4px_15px_rgba(0,0,0,0.04)] hover:shadow-[0_8px_25px_rgba(0,0,0,0.08)] flex items-center justify-between transition-all"
-              href="https://linkedin.com"
-              rel="noopener noreferrer"
-              target="_blank"
-            >
+            </div>
+            {/* Sin destino por ahora: cuando haya perfil real, volver a <a href=... target="_blank"> */}
+            <div className="group bg-white rounded-xl px-6 shadow-[0_4px_15px_rgba(0,0,0,0.04)] hover:shadow-[0_8px_25px_rgba(0,0,0,0.08)] flex items-center justify-between transition-all cursor-default">
               <div className="flex items-center gap-4">
-                <div className="w-10 h-10 rounded-lg bg-[#0a0a0a] text-white flex items-center justify-center shrink-0 font-bold font-headline-sm text-lg">
-                  in
+                <div className="w-10 h-10 rounded-lg bg-[#0a0a0a] text-white flex items-center justify-center shrink-0">
+                  {/* Cuatro personas: el equipo somos 4 */}
+                  <svg
+                    aria-hidden="true"
+                    viewBox="0 0 24 24"
+                    className="w-6 h-6"
+                    fill="currentColor"
+                  >
+                    <circle cx="4.5" cy="7" r="2.2" />
+                    <circle cx="19.5" cy="7" r="2.2" />
+                    <path d="M.5 15v-1a4 4 0 0 1 8 0v1zM15.5 15v-1a4 4 0 0 1 8 0v1z" />
+                    <g stroke="#0a0a0a" strokeWidth="1.3">
+                      <circle cx="9" cy="10" r="2.6" />
+                      <circle cx="15" cy="10" r="2.6" />
+                      <path d="M4.3 21v-1.6a4.7 4.7 0 0 1 9.4 0V21zM10.3 21v-1.6a4.7 4.7 0 0 1 9.4 0V21z" />
+                    </g>
+                  </svg>
                 </div>
                 <div className="flex flex-col">
                   <span className="font-label-sm text-label-sm text-[#484946] uppercase tracking-wider">
@@ -66,7 +73,7 @@ export default function AboutSection() {
               <div className="w-8 h-8 rounded-full bg-[#f3f3f1] group-hover:bg-[#0a0a0a] group-hover:text-white flex items-center justify-center transition-colors">
                 <span className="material-symbols-outlined text-base">north_east</span>
               </div>
-            </a>
+            </div>
             <div className="group bg-white rounded-xl px-6 shadow-[0_4px_15px_rgba(0,0,0,0.04)] hover:shadow-[0_8px_25px_rgba(0,0,0,0.08)] flex items-center justify-between transition-all cursor-default">
               <div className="flex items-center gap-4">
                 <div className="w-10 h-10 rounded-lg bg-[#0a0a0a] text-white flex items-center justify-center shrink-0">

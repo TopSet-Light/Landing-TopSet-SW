@@ -23,14 +23,14 @@ export default function SiteFooter() {
           <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-space-md">
             <img
               alt="TOPSET Software"
-              className="h-11 w-auto"
+              className="h-8 w-auto"
               height={144}
               loading="lazy"
               src="/brand/topset-mark.svg"
               width={168}
             />
             <span className="font-label-sm text-label-sm text-on-surface-variant/60">
-              [EDICIÓN BRUTALISTA DE VANGUARDIA]
+              Software a medida · Argentina
             </span>
           </div>
           <nav aria-label="Navegación del pie" className="flex flex-wrap items-center gap-space-lg">
@@ -56,9 +56,9 @@ export default function SiteFooter() {
               {navigation[2].label}
             </a>
           </nav>
-          <div className="font-body-sm text-body-sm text-on-surface-variant/50">
-            © 2025 TOPSET STUDIO. TODOS LOS DERECHOS RESERVADOS.
-          </div>
+          <p className="font-label-sm text-label-sm uppercase tracking-widest text-on-surface-variant/60">
+            © {new Date().getFullYear()} TOPSET Software. Todos los derechos reservados.
+          </p>
         </div>
       </div>
     </footer>
