@@ -282,6 +282,68 @@ html {
   background: rgba(255, 255, 255, 0.04);
   border: 1px solid rgba(255, 255, 255, 0.08);
 }
+.demos-error {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 32px 20px;
+  aspect-ratio: auto;
+  min-height: 320px;
+  text-align: center;
+  color: #f3f3f1;
+}
+.demos-error .material-symbols-outlined {
+  font-size: 40px;
+  color: rgba(243, 243, 241, 0.5);
+}
+.demos-error-title {
+  margin: 0;
+  font:
+    600 22px/1.2 'Space Grotesk',
+    sans-serif;
+}
+.demos-error-text {
+  margin: 0;
+  max-width: 26rem;
+  font-size: 15px;
+  line-height: 1.5;
+  color: rgba(243, 243, 241, 0.65);
+}
+.demos-error-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 8px;
+}
+.demos-error-actions button,
+.demos-error-actions a {
+  padding: 11px 22px;
+  border-radius: 999px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition:
+    background-color 0.2s,
+    color 0.2s;
+}
+.demos-error-actions button {
+  border: 0;
+  background: #f3f3f1;
+  color: #0a0a0a;
+}
+.demos-error-actions button:hover {
+  background: #fff;
+}
+.demos-error-actions a {
+  border: 1px solid rgba(243, 243, 241, 0.3);
+  color: #f3f3f1;
+}
+.demos-error-actions a:hover {
+  background: rgba(243, 243, 241, 0.1);
+}
 /* Scroll reveal (class added by useScrollReveal). Animate the section's inner
    content only: translating the section box left a gap over the dark page body,
    which read as a black band while scrolling between the light sections. */

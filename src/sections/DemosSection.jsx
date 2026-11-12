@@ -1,10 +1,33 @@
 import { lazy, Suspense, useEffect, useRef, useState } from 'react';
+import ErrorBoundary from '../components/ui/ErrorBoundary.jsx';
 
 // The demos are a separate chunk: they only download when the visitor gets close.
 const DemoPlayer = lazy(() => import('../demos/DemoPlayer.jsx'));
 
 function DemoPlaceholder() {
   return <div className="demos-placeholder" aria-hidden="true" />;
+}
+
+// Shown when the demos chunk fails to download or the player crashes, so the
+// rest of the landing (contact form included) keeps working.
+function DemoError() {
+  return (
+    <div className="demos-placeholder demos-error" role="alert">
+      <span className="material-symbols-outlined" aria-hidden="true">
+        cloud_off
+      </span>
+      <p className="demos-error-title">No pudimos cargar las demos.</p>
+      <p className="demos-error-text">
+        Puede ser un problema de conexión. Recargá la página o escribinos y te las mostramos.
+      </p>
+      <div className="demos-error-actions">
+        <button type="button" onClick={() => window.location.reload()}>
+          Recargar
+        </button>
+        <a href="#contacto">Escribinos</a>
+      </div>
+    </div>
+  );
 }
 
 export default function DemosSection() {
@@ -44,9 +67,11 @@ export default function DemosSection() {
           </p>
         </div>
         {near ? (
-          <Suspense fallback={<DemoPlaceholder />}>
-            <DemoPlayer />
-          </Suspense>
+          <ErrorBoundary fallback={<DemoError />}>
+            <Suspense fallback={<DemoPlaceholder />}>
+              <DemoPlayer />
+            </Suspense>
+          </ErrorBoundary>
         ) : (
           <DemoPlaceholder />
         )}
