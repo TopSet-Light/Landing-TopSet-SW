@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { createPortal } from 'react-dom';
 import { TEAM } from '../data/team.js';
 import { CONTACT_EMAIL, buildContactMailto } from '../utils/contactMailto.js';
 import { WEB3FORMS_ACCESS_KEY, sendContactForm } from '../utils/sendContactForm.js';
@@ -14,8 +15,47 @@ const TOPICS = [
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const SEND_ERROR = `No pudimos enviar tu consulta. Probá de nuevo en unos minutos o escribinos a ${CONTACT_EMAIL}.`;
 
+const TOAST_MS = 8000;
+
 function openMailClient(href) {
   window.location.href = href;
+}
+
+/**
+ * Floating confirmation shown after the message is sent. Rendered on <body> so
+ * no transformed ancestor can trap its fixed position; closes itself after a
+ * few seconds or with its buttons.
+ */
+function SentToast({ onClose }) {
+  useEffect(() => {
+    const timer = setTimeout(onClose, TOAST_MS);
+    return () => clearTimeout(timer);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+  return createPortal(
+    <div className="toast" role="status">
+      <span className="toast-icon" aria-hidden="true">
+        <span className="material-symbols-outlined">check</span>
+      </span>
+      <div className="toast-body">
+        <p className="toast-title">Consulta enviada correctamente</p>
+        <p className="toast-text">
+          Recibimos tu consulta y ya está en nuestra casilla. Te respondemos en un día hábil.
+        </p>
+        <div className="toast-actions">
+          <button type="button" onClick={onClose}>
+            Entendido
+          </button>
+        </div>
+      </div>
+      <button aria-label="Cerrar aviso" className="toast-close" onClick={onClose} type="button">
+        <span className="material-symbols-outlined" aria-hidden="true">
+          close
+        </span>
+      </button>
+    </div>,
+    document.body,
+  );
 }
 
 /**
@@ -234,11 +274,7 @@ export default function ContactSection({
                 {error}
               </p>
             ) : null}
-            {status === 'sent' ? (
-              <p className="contact-message is-ok" role="status">
-                ¡Gracias! Recibimos tu consulta y te respondemos en un día hábil.
-              </p>
-            ) : null}
+            {status === 'sent' ? <SentToast onClose={() => setStatus('idle')} /> : null}
             {status === 'mailto' ? (
               <p className="contact-message is-ok" role="status">
                 Abrimos tu programa de correo con la consulta lista para enviar. Si no se abrió,

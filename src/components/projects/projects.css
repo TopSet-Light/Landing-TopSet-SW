@@ -293,11 +293,33 @@
 }
 
 /* Section intro and closing call to action */
+.projects-intro {
+  max-width: 760px;
+}
+.projects-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 14px;
+  font:
+    700 11px 'Space Mono',
+    monospace;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #2f6fb3;
+}
+.projects-eyebrow::before {
+  content: '';
+  width: 28px;
+  height: 2px;
+  background: currentColor;
+}
 .projects-lead {
-  max-width: 420px;
+  margin-top: 18px;
+  max-width: 560px;
   color: #484946;
   font:
-    15px/1.6 'Inter',
+    17px/1.6 'Inter',
     sans-serif;
 }
 .projects-cta {
@@ -374,6 +396,20 @@
 .project-slide.is-armed.is-in {
   opacity: 1;
   transform: none;
+}
+/* Stacking deck: on roomy screens each card sticks under the header and the
+   next one slides up and covers it completely. Every card gets the same
+   corners so nothing of the covered one peeks out, and a lighter shadow
+   because the shadows of the whole pile add up. */
+@media (min-width: 1024px) and (min-height: 760px) {
+  .project-slide {
+    position: sticky;
+    top: 100px;
+  }
+  .project-slide > article {
+    border-radius: 36px;
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.05);
+  }
 }
 /* On phones a sideways start pushes the card past the screen edge: rise and
    fade instead, with only a hint of the side it comes from. */

@@ -25,8 +25,8 @@ export default function Home() {
       <SiteHeader />
       <main>
         <HeroSection />
-        <ProjectsSection />
         <DemosSection />
+        <ProjectsSection />
         <AboutSection />
         <ContactSection />
       </main>

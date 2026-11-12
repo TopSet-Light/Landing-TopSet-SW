@@ -75,7 +75,7 @@ export default function HeroSection() {
               {'>>>'}
             </span>
           </DepthButton>
-          <DepthButton className="" href="#proyectos">
+          <DepthButton className="" href="#demos">
             <span>Nuestros trabajos</span>
             <span className="text-primary tracking-tighter transition-transform duration-200 group-hover:translate-x-1.5">
               {'>>>'}
@@ -83,8 +83,8 @@ export default function HeroSection() {
           </DepthButton>
         </div>
       </div>
-      <a className="hero-scroll-cue" href="#proyectos" aria-label="Bajar a proyectos">
-        <span>Proyectos</span>
+      <a className="hero-scroll-cue" href="#demos" aria-label="Bajar a las demos">
+        <span>Demos</span>
         <span className="hero-scroll-cue-line" aria-hidden="true" />
       </a>
     </section>

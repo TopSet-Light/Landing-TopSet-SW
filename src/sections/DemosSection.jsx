@@ -57,13 +57,13 @@ export default function DemosSection() {
     >
       <div className="max-w-[1320px] mx-auto flex flex-col gap-10 lg:gap-14">
         <div className="demos-intro">
-          <p className="demos-eyebrow">Demos en vivo</p>
+          <p className="demos-eyebrow">En qué estamos trabajando</p>
           <h2 className="font-headline-lg text-headline-lg-mobile lg:text-headline-lg font-black uppercase tracking-tight leading-none">
-            Probalo vos.
+            Lo que estamos construyendo.
           </h2>
           <p className="demos-lead">
-            Dos sistemas que diseñamos, funcionando con datos de ejemplo. Mirá el recorrido o tocá
-            la pantalla y navegalos como si fueran tuyos.
+            Dos sistemas que estamos desarrollando, funcionando con datos de ejemplo. Mirá el
+            recorrido o tocá la pantalla y probalos como si fueran tuyos.
           </p>
         </div>
         {near ? (
