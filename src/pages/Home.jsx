@@ -3,6 +3,7 @@ import SiteFooter from '../components/layout/SiteFooter.jsx';
 import SiteHeader from '../components/layout/SiteHeader.jsx';
 import HeroSection from '../sections/HeroSection.jsx';
 import ProjectsSection from '../sections/ProjectsSection.jsx';
+import DemosSection from '../sections/DemosSection.jsx';
 import AboutSection from '../sections/AboutSection.jsx';
 import ContactSection from '../sections/ContactSection.jsx';
 import useScrollReveal from '../hooks/useScrollReveal.js';
@@ -25,6 +26,7 @@ export default function Home() {
       <main>
         <HeroSection />
         <ProjectsSection />
+        <DemosSection />
         <AboutSection />
         <ContactSection />
       </main>

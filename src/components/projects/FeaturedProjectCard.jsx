@@ -1,8 +1,8 @@
 import ProjectDemoButton from './ProjectDemoButton.jsx';
 
-export default function FeaturedProjectCard({ project }) {
+export default function FeaturedProjectCard({ project, flipped = false }) {
   return (
-    <article className={project.cardClassName}>
+    <article className={`${project.cardClassName}${flipped ? ' lg:flex-row-reverse' : ''}`}>
       <div className="w-full lg:w-1/2 p-5 sm:p-8 lg:p-12 flex flex-col justify-between bg-[#faf9f5]">
         <div className="bg-white rounded-lg p-3 px-4 sm:p-3.5 sm:px-5 shadow-[0_4px_15px_rgba(0,0,0,0.05)] flex items-center justify-between gap-3">
           <div className="flex min-w-0 items-center gap-space-sm">
@@ -26,7 +26,15 @@ export default function FeaturedProjectCard({ project }) {
           </h3>
         </div>
         <div className="flex flex-col items-start gap-3 pt-space-md sm:flex-row sm:items-center sm:justify-between">
-          <ProjectDemoButton project={project} />
+          {project.demoUrl ? (
+            <ProjectDemoButton project={project} />
+          ) : (
+            <a className="demo-project-contact" href="#contacto">
+              <span className="demo-project-contact-label">
+                Quiero un proyecto así <span aria-hidden={true}>↗</span>
+              </span>
+            </a>
+          )}
           <span className="font-label-sm text-label-sm text-[#484946] uppercase">
             {project.metric}
           </span>

@@ -34,27 +34,15 @@ export default function SiteFooter() {
             </span>
           </div>
           <nav aria-label="Navegación del pie" className="flex flex-wrap items-center gap-space-lg">
-            <a
-              className="inline-flex min-h-[44px] items-center font-label-sm text-label-sm uppercase tracking-widest text-on-surface-variant hover:text-on-surface transition-colors"
-              data-path="proyectos"
-              href={navigation[0].href}
-            >
-              {navigation[0].label}
-            </a>
-            <a
-              className="inline-flex min-h-[44px] items-center font-label-sm text-label-sm uppercase tracking-widest text-on-surface-variant hover:text-on-surface transition-colors"
-              data-path="sobre-nosotros"
-              href={navigation[1].href}
-            >
-              {navigation[1].label}
-            </a>
-            <a
-              className="inline-flex min-h-[44px] items-center font-label-sm text-label-sm uppercase tracking-widest text-on-surface-variant hover:text-on-surface transition-colors"
-              data-path="contacto"
-              href={navigation[2].href}
-            >
-              {navigation[2].label}
-            </a>
+            {navigation.map((item) => (
+              <a
+                key={item.href}
+                className="inline-flex min-h-[44px] items-center font-label-sm text-label-sm uppercase tracking-widest text-on-surface-variant hover:text-on-surface transition-colors"
+                href={item.href}
+              >
+                {item.label}
+              </a>
+            ))}
           </nav>
           <p className="font-label-sm text-label-sm uppercase tracking-widest text-on-surface-variant/60">
             © {new Date().getFullYear()} TOPSET Software. Todos los derechos reservados.

@@ -1,17 +1,17 @@
 import ProjectDemoButton from './ProjectDemoButton.jsx';
 
-export default function DemoProjectCard({ project, index }) {
+export default function DemoProjectCard({ project, index, flipped = false }) {
   const number = String(index + 3).padStart(2, '0');
   return (
     <article
-      className="demo-project-card"
+      className={`demo-project-card${flipped ? ' is-flipped' : ''}`}
       id={`demo-${project.id}`}
       aria-labelledby={`demo-title-${project.id}`}
     >
       <div className="demo-project-copy">
         <div className="demo-project-label">
           <span>{`${number} / ${project.name}`}</span>
-          <span className="demo-badge">DEMO</span>
+          <span className="demo-badge">IDEA</span>
         </div>
         <div>
           <p className="demo-project-category">{project.category}</p>
@@ -24,7 +24,7 @@ export default function DemoProjectCard({ project, index }) {
           ))}
         </ul>
         <div className="demo-project-actions">
-          <ProjectDemoButton project={project} />
+          {project.demoUrl && <ProjectDemoButton project={project} />}
           <a className="demo-project-contact" href="#contacto">
             <span className="demo-project-contact-label">
               Quiero un proyecto así <span aria-hidden={true}>↗</span>

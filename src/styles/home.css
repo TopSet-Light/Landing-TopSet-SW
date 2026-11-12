@@ -250,6 +250,38 @@ html {
     display: none !important;
   }
 }
+/* Demos en vivo (the player itself lives in src/demos) */
+.demos-section {
+  background:
+    radial-gradient(ellipse at 50% 0%, rgba(61, 127, 196, 0.18), transparent 60%), #080b10;
+  color: #e5e2e1;
+}
+.demos-intro {
+  max-width: 720px;
+}
+.demos-eyebrow {
+  margin-bottom: 14px;
+  font:
+    700 11px 'Space Mono',
+    monospace;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #8ec5ff;
+}
+.demos-lead {
+  margin-top: 18px;
+  max-width: 560px;
+  color: rgba(229, 226, 225, 0.72);
+  font-size: 17px;
+  line-height: 1.6;
+}
+.demos-placeholder {
+  width: 100%;
+  aspect-ratio: 1240 / 880;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
 /* Scroll reveal (class added by useScrollReveal). Animate the section's inner
    content only: translating the section box left a gap over the dark page body,
    which read as a black band while scrolling between the light sections. */
@@ -362,5 +394,129 @@ html {
   *::after {
     transition-duration: 0s !important;
     animation-duration: 0s !important;
+  }
+}
+
+/* About: founders card */
+.about-eyebrow {
+  margin-bottom: 14px;
+  font:
+    700 11px 'Space Mono',
+    monospace;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #484946;
+}
+.about-team {
+  padding: 28px;
+  border-radius: 28px;
+  background: #0a0a0a;
+  color: #f3f3f1;
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.18);
+}
+.about-team-head,
+.about-team-foot {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  font:
+    700 11px 'Space Mono',
+    monospace;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(243, 243, 241, 0.6);
+}
+.about-team-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  margin: 22px 0;
+  padding: 0;
+  list-style: none;
+}
+.about-member {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 20px;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  transition:
+    background-color 0.25s,
+    transform 0.25s;
+}
+.about-member:hover {
+  background: rgba(255, 255, 255, 0.09);
+  transform: translateY(-2px);
+}
+.about-avatar {
+  width: 64px;
+  height: 64px;
+  margin-bottom: 18px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: linear-gradient(140deg, #3d7fc4, #1d2f4a);
+  color: #fff;
+  font:
+    600 22px 'Space Grotesk',
+    sans-serif;
+  letter-spacing: -0.02em;
+}
+.about-member:nth-child(2) .about-avatar {
+  background: linear-gradient(140deg, #146b5d, #0f2a26);
+}
+.about-member:nth-child(3) .about-avatar {
+  background: linear-gradient(140deg, #c36a44, #3a2117);
+}
+.about-member:nth-child(4) .about-avatar {
+  background: linear-gradient(140deg, #705398, #251b33);
+}
+.about-member-index {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  font:
+    700 11px 'Space Mono',
+    monospace;
+  color: rgba(243, 243, 241, 0.4);
+}
+.about-member strong {
+  font:
+    500 22px/1.15 'Space Grotesk',
+    sans-serif;
+  letter-spacing: -0.03em;
+}
+.about-member small {
+  font-size: 13px;
+  color: rgba(243, 243, 241, 0.6);
+}
+.about-team-foot {
+  justify-content: flex-start;
+  padding-top: 18px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  line-height: 1.6;
+}
+@media (max-width: 520px) {
+  .about-team {
+    padding: 20px;
+    border-radius: 22px;
+  }
+  .about-team-grid {
+    gap: 10px;
+  }
+  .about-member {
+    padding: 16px;
+  }
+  .about-avatar {
+    width: 52px;
+    height: 52px;
+    margin-bottom: 14px;
+    font-size: 18px;
+  }
+  .about-member strong {
+    font-size: 18px;
   }
 }
