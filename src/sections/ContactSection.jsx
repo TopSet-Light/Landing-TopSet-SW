@@ -1,9 +1,16 @@
 import { useState } from 'react';
-import DepthButton from '../components/ui/DepthButton.jsx';
+import { TEAM } from '../data/team.js';
 import { CONTACT_EMAIL, buildContactMailto } from '../utils/contactMailto.js';
 import { WEB3FORMS_ACCESS_KEY, sendContactForm } from '../utils/sendContactForm.js';
 
 const EMPTY_FORM = { name: '', email: '', message: '' };
+const TOPICS = [
+  { id: 'gestion', icon: 'dashboard', label: 'Sistema de gestión' },
+  { id: 'turnos', icon: 'calendar_month', label: 'Turnos online' },
+  { id: 'web', icon: 'devices', label: 'Página o app web' },
+  { id: 'mejorar', icon: 'build', label: 'Mejorar algo que ya tengo' },
+  { id: 'otra', icon: 'lightbulb', label: 'Otra idea' },
+];
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const SEND_ERROR = `No pudimos enviar tu consulta. Probá de nuevo en unos minutos o escribinos a ${CONTACT_EMAIL}.`;
 
@@ -22,6 +29,7 @@ export default function ContactSection({
   submit = sendContactForm,
 }) {
   const [form, setForm] = useState(EMPTY_FORM);
+  const [topics, setTopics] = useState([]);
   const [error, setError] = useState('');
   const [status, setStatus] = useState('idle');
   const usesService = Boolean(accessKey);
@@ -36,14 +44,21 @@ export default function ContactSection({
     };
   }
 
+  function toggleTopic(label) {
+    setTopics((current) =>
+      current.includes(label) ? current.filter((item) => item !== label) : [...current, label],
+    );
+    if (status !== 'idle' && status !== 'sending') setStatus('idle');
+  }
+
   async function handleSubmit(event) {
     event.preventDefault();
     if (sending) return;
     const name = form.name.trim();
     const email = form.email.trim();
-    const message = form.message.trim();
+    const text = form.message.trim();
 
-    if (!name || !email || !message) {
+    if (!name || !email || !text) {
       setStatus('idle');
       setError('Completá tu nombre, email y mensaje para enviar la consulta.');
       return;
@@ -54,10 +69,13 @@ export default function ContactSection({
       return;
     }
     setError('');
+    // The chosen topics travel as the first line of the message.
+    const message = topics.length ? `Necesito: ${topics.join(', ')}\n\n${text}` : text;
 
     // Honeypot: real visitors never see or fill this field.
     if (event.currentTarget.elements.botcheck?.checked) {
       setForm(EMPTY_FORM);
+      setTopics([]);
       setStatus('sent');
       return;
     }
@@ -72,6 +90,7 @@ export default function ContactSection({
     try {
       await submit({ accessKey, name, email, message });
       setForm(EMPTY_FORM);
+      setTopics([]);
       setStatus('sent');
     } catch {
       setStatus('error');
@@ -80,149 +99,154 @@ export default function ContactSection({
   }
 
   return (
-    <section
-      className="w-full bg-[#070707] py-16 sm:py-20 px-margin-mobile lg:px-[8vw]"
-      id="contacto"
-    >
-      <div className="mx-auto max-w-[1240px] overflow-hidden rounded-2xl border border-white/[0.06] bg-surface-container-low shadow-[0_0_50px_-10px_rgba(255,80,112,0.1)]">
-        <div className="p-6 sm:p-10 lg:p-14">
-          <div className="flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
-            <div className="max-w-2xl">
-              <p className="font-label-sm text-label-sm font-bold uppercase tracking-widest text-primary">
-                CONTACTO
-              </p>
-              <h2 className="mt-4 font-headline-md text-[clamp(28px,7vw,42px)] font-bold leading-[1.06] text-on-surface uppercase">
-                ¿TIENES UNA IDEA O UN SISTEMA QUE ESCALAR?
-              </h2>
-              <p className="mt-4 max-w-xl font-body-md text-body-md text-secondary">
-                Contanos qué necesitás y coordinamos una sesión de diagnóstico técnico de 30 minutos
-                sin costo.
-              </p>
+    <section className="contact-section" id="contacto">
+      <div className="contact-card">
+        <div className="contact-intro">
+          <p className="contact-eyebrow">Contacto</p>
+          <h2>¿Tenés una idea o un sistema que escalar?</h2>
+          <p className="contact-lead">
+            Contanos qué necesitás y coordinamos una sesión de diagnóstico técnico de 30 minutos sin
+            costo.
+          </p>
+
+          <div className="contact-people">
+            <div className="contact-faces" aria-hidden="true">
+              {TEAM.map(({ name, photo }) => (
+                <img key={name} src={photo} alt="" width={256} height={256} loading="lazy" />
+              ))}
             </div>
-            <div className="shrink-0 border-t border-white/10 pt-6 lg:border-l lg:border-t-0 lg:pl-10 lg:pt-0">
-              <p className="font-label-sm text-label-sm font-bold uppercase tracking-widest text-on-surface-variant">
-                ESCRIBINOS DIRECTO
-              </p>
-              <a
-                className="mt-2 inline-flex font-body-lg text-body-lg text-on-surface underline decoration-white/30 underline-offset-4 transition-colors hover:text-primary hover:decoration-primary"
-                href={`mailto:${CONTACT_EMAIL}`}
-              >
-                {CONTACT_EMAIL}
-              </a>
-              <p className="mt-3 font-body-sm text-body-sm text-secondary">
-                Respondemos en un día hábil.
-              </p>
-            </div>
+            <p>
+              <strong>Te contesta uno de nosotros cuatro, no un bot.</strong>
+              <span>{TEAM.map(({ name }) => name).join(' · ')}</span>
+            </p>
           </div>
 
-          <form
-            aria-label="Formulario de contacto"
-            className="mt-10 rounded-xl border border-white/10 bg-[#0a0f16]/70 p-5 sm:p-8"
-            noValidate
-            onSubmit={handleSubmit}
-          >
-            <div className="grid gap-5 sm:grid-cols-2">
-              <label className="flex flex-col gap-2" htmlFor="contact-name">
-                <span className="font-label-sm text-label-sm font-bold uppercase tracking-widest text-on-surface-variant">
-                  NOMBRE
-                </span>
-                <input
-                  autoComplete="name"
-                  className="w-full rounded-lg border border-white/10 bg-[#070b11] px-5 py-4 text-base text-on-surface outline-none transition placeholder:text-on-surface-variant/60 focus:border-primary focus:ring-2 focus:ring-primary/20 sm:text-[17px]"
-                  id="contact-name"
-                  maxLength={120}
-                  name="name"
-                  onChange={updateField('name')}
-                  placeholder="Tu nombre"
-                  required
-                  type="text"
-                  value={form.name}
-                />
-              </label>
-              <label className="flex flex-col gap-2" htmlFor="contact-email">
-                <span className="font-label-sm text-label-sm font-bold uppercase tracking-widest text-on-surface-variant">
-                  EMAIL
-                </span>
-                <input
-                  autoComplete="email"
-                  className="w-full rounded-lg border border-white/10 bg-[#070b11] px-5 py-4 text-base text-on-surface outline-none transition placeholder:text-on-surface-variant/60 focus:border-primary focus:ring-2 focus:ring-primary/20 sm:text-[17px]"
-                  id="contact-email"
-                  inputMode="email"
-                  maxLength={160}
-                  name="email"
-                  onChange={updateField('email')}
-                  placeholder="nombre@empresa.com"
-                  required
-                  type="email"
-                  value={form.email}
-                />
-              </label>
-            </div>
-
-            <label className="mt-5 flex flex-col gap-2" htmlFor="contact-message">
-              <span className="font-label-sm text-label-sm font-bold uppercase tracking-widest text-on-surface-variant">
-                MENSAJE
+          <div className="contact-direct">
+            <p>Escribinos directo</p>
+            <a href={`mailto:${CONTACT_EMAIL}`}>
+              <span className="material-symbols-outlined" aria-hidden="true">
+                mail
               </span>
-              <textarea
-                className="min-h-[160px] w-full resize-y rounded-lg border border-white/10 bg-[#070b11] px-5 py-4 text-base text-on-surface outline-none transition placeholder:text-on-surface-variant/60 focus:border-primary focus:ring-2 focus:ring-primary/20 sm:text-[17px]"
-                id="contact-message"
-                maxLength={2000}
-                name="message"
-                onChange={updateField('message')}
-                placeholder="Contanos qué querés construir o mejorar..."
+              {CONTACT_EMAIL}
+            </a>
+            <p className="contact-direct-note">Respondemos en un día hábil.</p>
+          </div>
+        </div>
+
+        <form
+          aria-label="Formulario de contacto"
+          className="contact-form"
+          noValidate
+          onSubmit={handleSubmit}
+        >
+          <fieldset className="contact-topics">
+            <legend>
+              ¿Qué necesitás? <span>Podés elegir más de una</span>
+            </legend>
+            <div className="contact-chips">
+              {TOPICS.map((topic) => (
+                <label className="contact-chip" key={topic.id}>
+                  <input
+                    checked={topics.includes(topic.label)}
+                    name="topics"
+                    onChange={() => toggleTopic(topic.label)}
+                    type="checkbox"
+                    value={topic.label}
+                  />
+                  <span className="material-symbols-outlined" aria-hidden="true">
+                    {topic.icon}
+                  </span>
+                  {topic.label}
+                </label>
+              ))}
+            </div>
+          </fieldset>
+
+          <div className="contact-row">
+            <label className="contact-field" htmlFor="contact-name">
+              <span>Nombre</span>
+              <input
+                autoComplete="name"
+                id="contact-name"
+                maxLength={120}
+                name="name"
+                onChange={updateField('name')}
+                placeholder="Tu nombre"
                 required
-                rows={5}
-                value={form.message}
+                type="text"
+                value={form.name}
               />
             </label>
+            <label className="contact-field" htmlFor="contact-email">
+              <span>Email</span>
+              <input
+                autoComplete="email"
+                id="contact-email"
+                inputMode="email"
+                maxLength={160}
+                name="email"
+                onChange={updateField('email')}
+                placeholder="nombre@empresa.com"
+                required
+                type="email"
+                value={form.email}
+              />
+            </label>
+          </div>
 
-            <input
-              aria-hidden="true"
-              className="hidden"
-              name="botcheck"
-              tabIndex={-1}
-              type="checkbox"
+          <label className="contact-field" htmlFor="contact-message">
+            <span>Mensaje</span>
+            <textarea
+              id="contact-message"
+              maxLength={2000}
+              name="message"
+              onChange={updateField('message')}
+              placeholder="Contanos qué querés construir o mejorar..."
+              required
+              rows={5}
+              value={form.message}
             />
+          </label>
 
-            <div className="mt-6 flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between sm:gap-4">
-              <DepthButton
-                aria-busy={sending}
-                className="!m-0 !min-h-[54px] w-full !px-8 sm:w-auto disabled:cursor-wait disabled:opacity-70"
-                disabled={sending}
-                type="submit"
-              >
-                <span>{sending ? 'Enviando…' : 'Enviar consulta'}</span>
-                <span className="tracking-tighter transition-transform duration-200 group-hover:translate-x-1.5">
-                  {'>>>'}
-                </span>
-              </DepthButton>
-              <p className="font-body-sm text-body-sm text-secondary">
-                {usesService
-                  ? 'Te respondemos en un día hábil.'
-                  : 'Se abre tu programa de correo con la consulta lista.'}
+          <input
+            aria-hidden="true"
+            className="hidden"
+            name="botcheck"
+            tabIndex={-1}
+            type="checkbox"
+          />
+
+          <div className="contact-actions">
+            <button aria-busy={sending} className="contact-submit" disabled={sending} type="submit">
+              <span>{sending ? 'Enviando…' : 'Enviar consulta'}</span>
+              <span className="material-symbols-outlined" aria-hidden="true">
+                arrow_forward
+              </span>
+            </button>
+            {usesService ? null : (
+              <p className="contact-hint">Se abre tu programa de correo con la consulta lista.</p>
+            )}
+          </div>
+
+          <div aria-live="polite">
+            {error ? (
+              <p className="contact-message is-error" role="alert">
+                {error}
               </p>
-            </div>
-
-            <div aria-live="polite">
-              {error ? (
-                <p className="mt-4 font-body-sm text-body-sm text-error" role="alert">
-                  {error}
-                </p>
-              ) : null}
-              {status === 'sent' ? (
-                <p className="mt-4 font-body-sm text-body-sm text-primary" role="status">
-                  ¡Gracias! Recibimos tu consulta y te respondemos en un día hábil.
-                </p>
-              ) : null}
-              {status === 'mailto' ? (
-                <p className="mt-4 font-body-sm text-body-sm text-primary" role="status">
-                  Abrimos tu programa de correo con la consulta lista para enviar. Si no se abrió,
-                  escribinos a {CONTACT_EMAIL}.
-                </p>
-              ) : null}
-            </div>
-          </form>
-        </div>
+            ) : null}
+            {status === 'sent' ? (
+              <p className="contact-message is-ok" role="status">
+                ¡Gracias! Recibimos tu consulta y te respondemos en un día hábil.
+              </p>
+            ) : null}
+            {status === 'mailto' ? (
+              <p className="contact-message is-ok" role="status">
+                Abrimos tu programa de correo con la consulta lista para enviar. Si no se abrió,
+                escribinos a {CONTACT_EMAIL}.
+              </p>
+            ) : null}
+          </div>
+        </form>
       </div>
     </section>
   );
