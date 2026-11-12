@@ -275,20 +275,118 @@
   color: #ffffff65;
   letter-spacing: -0.08em;
 }
-@media (min-width: 1024px) and (min-height: 760px) {
-  .demo-project-card {
-    position: sticky;
-    top: 90px;
+/* Zig-zag layout: every other card puts the art on the left */
+@media (min-width: 768px) {
+  .demo-project-card.is-flipped .demo-project-art {
+    order: -1;
   }
-  #proyectos article {
-    z-index: auto;
+  .demo-project-card.is-flipped .demo-browser {
+    transform: perspective(1000px) rotateY(9deg) rotateZ(-4deg);
+  }
+  .demo-project-card.is-flipped:hover .demo-browser {
+    transform: perspective(1000px) rotateY(3deg) rotateZ(-1deg);
+  }
+  .demo-project-card.is-flipped .demo-project-number {
+    right: auto;
+    left: 24px;
   }
 }
-@media (max-width: 1023px), (max-height: 759px) {
-  #proyectos article {
-    position: relative;
-    top: auto;
-    z-index: auto;
+
+/* Section intro and closing call to action */
+.projects-lead {
+  max-width: 420px;
+  color: #484946;
+  font:
+    15px/1.6 'Inter',
+    sans-serif;
+}
+.projects-cta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px 24px;
+  padding: 28px 32px;
+  border-radius: 24px;
+  background: #0a0a0a;
+  color: #f3f3f1;
+}
+.projects-cta p {
+  font:
+    500 clamp(20px, 2.2vw, 28px)/1.2 'Space Grotesk',
+    sans-serif;
+  letter-spacing: -0.03em;
+}
+.projects-cta a {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  padding: 10px 20px;
+  border-radius: 999px;
+  background: #f3f3f1;
+  color: #0a0a0a;
+  font:
+    600 14px 'Inter',
+    sans-serif;
+  text-decoration: none;
+  transition:
+    background-color 0.2s,
+    color 0.2s;
+}
+.projects-cta a:hover {
+  background: #3d7fc4;
+  color: #fff;
+}
+.projects-cta a:focus-visible {
+  outline: 3px solid #df0027;
+  outline-offset: 4px;
+}
+@media (max-width: 767px) {
+  .projects-cta {
+    padding: 24px 20px;
+    border-radius: 20px;
+  }
+  .projects-cta a {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+/* Slide-in on scroll (classes set by ProjectsSection): left cards come from the
+   left, right cards from the right. The section clips the overflow so the
+   off-screen start position never adds horizontal scroll. */
+#proyectos {
+  overflow-x: clip;
+}
+.project-slide.is-armed {
+  opacity: 0;
+  transition:
+    opacity 0.8s cubic-bezier(0.2, 0.7, 0.2, 1),
+    transform 0.9s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+.project-slide.is-armed[data-side='left'] {
+  transform: translateX(-90px) rotate(-1.2deg);
+}
+.project-slide.is-armed[data-side='right'] {
+  transform: translateX(90px) rotate(1.2deg);
+}
+.project-slide.is-armed.is-in {
+  opacity: 1;
+  transform: none;
+}
+/* On phones a sideways start pushes the card past the screen edge: rise and
+   fade instead, with only a hint of the side it comes from. */
+@media (max-width: 767px) {
+  .project-slide.is-armed[data-side='left'],
+  .project-slide.is-armed[data-side='right'] {
+    transform: translateY(36px) scale(0.97);
+  }
+  .project-slide.is-armed[data-side='left'] {
+    transform-origin: left center;
+  }
+  .project-slide.is-armed[data-side='right'] {
+    transform-origin: right center;
   }
 }
 @media (max-width: 767px) {

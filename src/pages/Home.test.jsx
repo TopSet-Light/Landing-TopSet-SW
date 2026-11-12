@@ -39,16 +39,23 @@ describe('Home navigation and content', () => {
     },
   );
 
-  it('preserves the six projects, their demo actions and navigation destinations', () => {
+  it('names the browser tab after the current section', () => {
+    render(<Home />);
+    expect(document.title).toBe('Inicio · TOPSET');
+  });
+
+  it('preserves the six project ideas, their contact actions and navigation destinations', () => {
     render(<Home />);
     const articles = screen.getAllByRole('article');
     expect(articles).toHaveLength(6);
     for (const article of articles) {
-      expect(within(article).getByText(/demo próximamente|ver demo/i)).toBeTruthy();
+      expect(within(article).getByText(/quiero un proyecto así|ver demo/i)).toBeTruthy();
     }
-    for (const link of within(screen.getByRole('navigation')).getAllByRole('link')) {
-      expect(document.getElementById(link.hash.slice(1))).not.toBeNull();
+    for (const nav of screen.getAllByRole('navigation', { hidden: true })) {
+      for (const link of within(nav).getAllByRole('link', { hidden: true })) {
+        expect(document.getElementById(link.hash.slice(1))).not.toBeNull();
+      }
     }
-    expect(screen.getAllByText('DEMO')).toHaveLength(4);
+    expect(screen.getAllByText('IDEA')).toHaveLength(4);
   });
 });

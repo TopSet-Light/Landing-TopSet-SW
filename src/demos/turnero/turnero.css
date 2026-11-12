@@ -1,0 +1,597 @@
+/* Turnero Kine · tokens del Figma */
+.kn-app {
+  --kn-brand: #146b5d;
+  --kn-ink: #173d39;
+  --kn-muted: #596d68;
+  --kn-bg: #f6f8f5;
+  --kn-line: #dfe7e2;
+  --kn-soft: #e7f0ec;
+  display: flex;
+  width: 100%;
+  height: 100%;
+  background: #e9eee9;
+  color: var(--kn-ink);
+  font:
+    400 13px/1.45 'Inter',
+    sans-serif;
+  text-align: left;
+}
+.kn-app button {
+  font: inherit;
+  color: inherit;
+}
+.kn-app h2,
+.kn-app h3,
+.kn-app h4,
+.kn-app p {
+  margin: 0;
+}
+.kn-caption {
+  margin-bottom: 10px !important;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #6f837d;
+}
+.kn-phone-area {
+  width: 430px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 22px 20px;
+}
+.kn-admin-area {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  padding: 22px 24px 22px 4px;
+}
+.kn-eyebrow {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--kn-brand);
+}
+.kn-muted {
+  color: var(--kn-muted);
+}
+
+/* Phone */
+.kn-phone {
+  width: 380px;
+  height: 680px;
+  display: flex;
+  flex-direction: column;
+  border-radius: 34px;
+  background: var(--kn-bg);
+  border: 8px solid #10201d;
+  box-shadow: 0 24px 50px rgba(16, 32, 29, 0.25);
+  overflow: hidden;
+}
+.kn-phone-head {
+  padding: 16px 18px 12px;
+  background: #fff;
+  border-bottom: 1px solid var(--kn-line);
+}
+.kn-phone-head small {
+  display: block;
+  margin-top: 2px;
+  color: var(--kn-muted);
+  font-size: 11px;
+}
+.kn-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.kn-brand img {
+  width: 24px;
+  height: auto;
+}
+.kn-brand strong {
+  font-size: 22px;
+  font-weight: 600;
+  line-height: 1;
+}
+.kn-brand.is-sm img {
+  width: 22px;
+}
+.kn-brand.is-sm strong {
+  font-size: 20px;
+}
+.kn-phone-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 18px 18px 20px;
+  overflow: hidden;
+  animation: kn-in 0.35s ease-out;
+}
+@keyframes kn-in {
+  from {
+    opacity: 0;
+    transform: translateX(14px);
+  }
+}
+.kn-phone-body h2 {
+  font-size: 23px;
+  font-weight: 600;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+}
+.kn-bubble {
+  padding: 12px 14px;
+  border-radius: 12px;
+  background: #fff;
+  border: 1px solid var(--kn-line);
+}
+.kn-bubble small {
+  display: block;
+  margin-bottom: 4px;
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--kn-brand);
+}
+.kn-bubble p {
+  line-height: 1.5;
+}
+.kn-btn {
+  width: 100%;
+  padding: 11px 14px;
+  border-radius: 10px;
+  border: 1px solid var(--kn-line);
+  background: #fff;
+  text-align: center;
+  font-weight: 500 !important;
+  transition:
+    background-color 0.15s,
+    opacity 0.15s;
+}
+.kn-btn:hover {
+  background: var(--kn-soft);
+}
+.kn-btn.is-primary {
+  background: var(--kn-brand);
+  border-color: var(--kn-brand);
+  color: #fff !important;
+}
+.kn-btn.is-primary:hover {
+  background: #0f574b;
+}
+.kn-btn.is-danger {
+  background: #9b2c2c;
+  border-color: #9b2c2c;
+}
+.kn-btn:disabled {
+  opacity: 0.45;
+}
+.kn-btn.is-inline {
+  width: auto;
+  margin-top: 12px;
+}
+.kn-field span {
+  display: block;
+  margin-bottom: 4px;
+  font-size: 13px;
+}
+.kn-field input {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid var(--kn-line);
+  background: #fff;
+  font: inherit;
+  color: var(--kn-ink);
+  outline: none;
+}
+.kn-field input:focus {
+  border-color: var(--kn-brand);
+  box-shadow: 0 0 0 3px var(--kn-soft);
+}
+.kn-hint {
+  color: var(--kn-muted);
+  font-size: 11px;
+}
+.kn-label {
+  margin-top: 2px;
+  color: var(--kn-muted);
+  font-size: 12px;
+}
+.kn-service {
+  margin-top: -4px !important;
+  color: var(--kn-brand);
+  font-weight: 600;
+}
+.kn-days,
+.kn-slots {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 7px;
+}
+.kn-day {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 7px 0;
+  border-radius: 10px;
+  border: 1px solid var(--kn-line);
+  background: #fff;
+  font-size: 10px !important;
+}
+.kn-day b {
+  font-size: 15px;
+  font-weight: 600;
+}
+.kn-slot {
+  padding: 7px 0;
+  border-radius: 999px;
+  border: 1px solid var(--kn-line);
+  background: #fff;
+  font-size: 12px !important;
+  text-align: center;
+}
+.kn-day.is-selected,
+.kn-slot.is-selected {
+  background: var(--kn-brand);
+  border-color: var(--kn-brand);
+  color: #fff !important;
+}
+.kn-slot.is-taken {
+  background: #eef1ee;
+  color: #9aa8a4 !important;
+  text-decoration: line-through;
+}
+.kn-day:disabled {
+  opacity: 0.4;
+  text-decoration: line-through;
+}
+.kn-pick {
+  font-weight: 600;
+}
+
+/* WhatsApp preview */
+.kn-phone.is-wa {
+  background: #efeae2;
+}
+.kn-wa {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  margin: -18px -18px -20px;
+}
+.kn-wa header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px;
+  background: #075e54;
+  color: #fff;
+}
+.kn-wa header small {
+  display: block;
+  opacity: 0.8;
+  font-size: 11px;
+}
+.kn-wa-avatar {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: #fff;
+  display: grid;
+  place-items: center;
+}
+.kn-wa-avatar img {
+  width: 16px;
+  height: auto;
+}
+.kn-wa-chat {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 14px;
+}
+.kn-wa-date {
+  align-self: center;
+  padding: 3px 10px;
+  border-radius: 8px;
+  background: #fff;
+  font-size: 11px;
+  color: #54656f;
+}
+.kn-wa-msg {
+  max-width: 86%;
+  padding: 9px 11px 6px;
+  border-radius: 0 10px 10px 10px;
+  background: #fff;
+  color: #111b21;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.08);
+  animation: kn-in 0.4s ease-out;
+}
+.kn-wa-msg p + p {
+  margin-top: 6px;
+}
+.kn-wa-msg small {
+  display: block;
+  text-align: right;
+  font-size: 10px;
+  color: #53bdeb;
+}
+.kn-wa-actions {
+  max-width: 86%;
+  display: grid;
+  gap: 4px;
+}
+.kn-wa-actions span {
+  padding: 8px;
+  border-radius: 8px;
+  background: #fff;
+  color: #027eb5;
+  text-align: center;
+  font-weight: 500;
+}
+.kn-wa-back {
+  margin: 12px;
+  padding: 10px;
+  border-radius: 10px;
+  background: #fff;
+  font-weight: 500 !important;
+}
+
+/* Admin */
+.kn-admin {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  border-radius: 16px;
+  background: #f3f5f2;
+  border: 1px solid var(--kn-line);
+  box-shadow: 0 16px 40px rgba(16, 32, 29, 0.12);
+  overflow: hidden;
+}
+.kn-admin aside {
+  width: 170px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 18px 14px;
+  background: #fff;
+  border-right: 1px solid var(--kn-line);
+}
+.kn-admin aside .kn-eyebrow {
+  margin: 12px 0 4px;
+  color: var(--kn-muted);
+}
+.kn-admin aside button {
+  padding: 8px 10px;
+  border-radius: 9px;
+  border: 1px solid var(--kn-line);
+  background: #fff;
+  font-size: 12px !important;
+  text-align: center;
+}
+.kn-admin aside button.is-active {
+  background: var(--kn-brand);
+  border-color: var(--kn-brand);
+  color: #fff !important;
+  font-weight: 600;
+}
+.kn-admin-foot {
+  margin-top: 6px;
+  color: var(--kn-muted);
+  font-size: 11px;
+}
+.kn-admin-body {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 20px 22px;
+}
+.kn-crumb {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--kn-muted);
+}
+.kn-admin-body h3 {
+  font-size: 22px;
+  font-weight: 600;
+}
+.kn-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+.kn-stats span,
+.kn-card {
+  padding: 12px 14px;
+  border-radius: 12px;
+  background: #fff;
+  border: 1px solid var(--kn-line);
+}
+.kn-stats span {
+  color: var(--kn-muted);
+  font-size: 12px;
+}
+.kn-stats b {
+  display: block;
+  color: var(--kn-ink);
+  font-size: 24px;
+  font-weight: 600;
+}
+.kn-table {
+  border-radius: 12px;
+  background: #fff;
+  border: 1px solid var(--kn-line);
+  overflow: hidden;
+}
+.kn-tr {
+  display: grid;
+  grid-template-columns: 64px 2.3fr 1fr 1fr;
+  white-space: nowrap;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 14px;
+  border-top: 1px solid #edf2ee;
+  transition: background-color 0.4s;
+}
+.kn-th {
+  border-top: 0;
+  background: #f7faf8;
+  color: var(--kn-muted);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.kn-tr.is-flash {
+  animation: kn-flash 2.4s ease-out;
+}
+@keyframes kn-flash {
+  0%,
+  35% {
+    background: #fff3c4;
+  }
+  100% {
+    background: transparent;
+  }
+}
+.kn-time {
+  font-weight: 600;
+}
+.kn-meter {
+  display: inline-flex;
+  gap: 3px;
+  margin-right: 8px;
+  vertical-align: middle;
+}
+.kn-meter em {
+  width: 14px;
+  height: 8px;
+  border-radius: 3px;
+  background: #dfe7e2;
+}
+.kn-meter em.is-on {
+  background: var(--kn-brand);
+}
+.kn-tag {
+  margin-left: 8px;
+  padding: 2px 7px;
+  border-radius: 999px;
+  background: #fde8e8;
+  color: #9b2c2c;
+  font-size: 10px;
+  font-weight: 600;
+}
+.kn-tabs {
+  display: flex;
+  gap: 8px;
+}
+.kn-tabs span {
+  padding: 7px 14px;
+  border-radius: 9px;
+  border: 1px solid var(--kn-line);
+  background: #fff;
+  font-size: 12px;
+}
+.kn-tabs span.is-active {
+  background: var(--kn-brand);
+  border-color: var(--kn-brand);
+  color: #fff;
+  font-weight: 600;
+}
+.kn-split {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  gap: 12px;
+  align-items: start;
+}
+.kn-card h4 {
+  margin-bottom: 10px;
+  font-size: 14px;
+  font-weight: 600;
+}
+.kn-card p + p {
+  margin-top: 6px;
+}
+.kn-admin-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+.kn-admin-field span {
+  display: block;
+  margin-bottom: 3px;
+  font-size: 11px;
+  color: var(--kn-muted);
+}
+.kn-admin-field b {
+  display: block;
+  padding: 7px 10px;
+  border-radius: 8px;
+  border: 1px solid var(--kn-line);
+  font-weight: 500;
+}
+.kn-stepper {
+  display: flex;
+  align-items: center;
+  border-radius: 8px;
+  border: 1px solid var(--kn-brand);
+  overflow: hidden;
+}
+.kn-stepper b {
+  flex: 1;
+  padding: 7px 0 !important;
+  border: 0 !important;
+  text-align: center;
+}
+.kn-stepper button {
+  width: 34px;
+  align-self: stretch;
+  background: var(--kn-soft);
+  font-size: 16px !important;
+  font-weight: 600;
+}
+.kn-chip {
+  display: inline-block;
+  margin-bottom: 8px;
+  padding: 4px 10px;
+  border-radius: 8px;
+  background: var(--kn-soft);
+  color: var(--kn-brand);
+  font-size: 11px;
+  font-weight: 600;
+}
+.kn-chip.is-warn {
+  background: #fff3c4;
+  color: #7a5a00;
+}
+.kn-offer b {
+  color: var(--kn-brand);
+}
+.kn-card .kn-muted {
+  display: block;
+  margin-top: 8px;
+  font-size: 11px;
+}
+.kn-check {
+  display: block;
+  padding: 4px 0;
+  text-align: left;
+}
+
+/* Narrow screens: only the patient's phone */
+.kn-app.is-compact .kn-phone-area {
+  width: 100%;
+}

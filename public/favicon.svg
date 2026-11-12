@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -12 168 168">
+  <defs>
+    <clipPath id="ts-box">
+      <rect width="168" height="144" rx="14" />
+    </clipPath>
+  </defs>
+  <g clip-path="url(#ts-box)">
+    <path fill="#141517" d="M0 0H130L102 28H168V144H0Z" />
+    <path fill="#22b05a" d="M140 0H168V28H112Z" />
+  </g>
+  <path fill="#ffffff" d="M18 18H102L66 54V102L42 126V42H18Z" />
+  <path
+    fill="#ffffff"
+    d="M92 42H150V62H110A6 6 0 0 0 110 74L150 80V108Q150 126 132 126H56L78 104H118A6 6 0 0 0 118 92L82 87Q76 86 76 80V58Z"
+  />
+</svg>

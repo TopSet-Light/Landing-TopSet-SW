@@ -36,9 +36,6 @@ export default function HeroSection() {
         intro
         lightMode={false}
       />
-      <span className="home-brand">
-        TOPSET-SOFTWARE<span>®</span>
-      </span>
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 select-none pointer-events-none z-0">
         <span
           aria-hidden="true"

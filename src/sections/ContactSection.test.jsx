@@ -87,6 +87,22 @@ describe('ContactSection form with Web3Forms', () => {
     expect(navigate).not.toHaveBeenCalled();
   });
 
+  it('adds the chosen topics at the start of the message', async () => {
+    const submit = vi.fn().mockResolvedValue({ success: true });
+    render(<ContactSection accessKey="test-key" navigate={vi.fn()} submit={submit} />);
+
+    fireEvent.click(screen.getByLabelText(/turnos online/i));
+    fireEvent.click(screen.getByLabelText(/sistema de gestión/i));
+    fillForm();
+    fireEvent.click(screen.getByRole('button', { name: /enviar consulta/i }));
+
+    expect(submit.mock.calls[0][0].message).toBe(
+      'Necesito: Turnos online, Sistema de gestión\n\nHola',
+    );
+    await screen.findByRole('status');
+    expect(screen.getByLabelText(/turnos online/i).checked).toBe(false);
+  });
+
   it('shows an error and keeps the data when sending fails', async () => {
     const submit = vi.fn().mockRejectedValue(new Error('down'));
     render(<ContactSection accessKey="test-key" navigate={vi.fn()} submit={submit} />);

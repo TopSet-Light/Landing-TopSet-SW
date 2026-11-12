@@ -1,18 +1,19 @@
 /**
- * `demoUrl` is the public demo or live site for a project. While it is null the
- * card renders "Demo próximamente" instead of a dead link.
+ * These are project ideas (what we can build), not delivered client work.
+ * `demoUrl` is a public demo or live site; while it is null the card invites the
+ * visitor to get in touch instead of promising a demo.
  */
 export const featuredProjects = [
   {
     id: 'fintech',
     cardClassName:
-      'sticky top-[90px] z-10 w-full max-w-[1240px] h-auto lg:h-[520px] rounded-xl overflow-hidden bg-[#faf9f5] shadow-[-10px_40px_rgba(0,0,0,0.12)] flex flex-col lg:flex-row transition-transform duration-300',
+      'w-full max-w-[1240px] h-auto lg:h-[520px] rounded-xl overflow-hidden bg-[#faf9f5] shadow-[-8px_24px_45px_rgba(0,0,0,0.10)] flex flex-col lg:flex-row transition-transform duration-300',
     icon: 'terminal',
     name: '01 · Plataforma Fintech & Pagos',
-    category: 'CASO DE ÉXITO · WEB & MOBILE',
+    category: 'IDEA DE PROYECTO · FINTECH',
     title:
-      'Arquitectura de alto rendimiento diseñada para procesar operaciones en tiempo real y convertir usuarios.',
-    metric: 'LATENCIA < 40MS',
+      'Una plataforma de pagos que procese operaciones en tiempo real y sea simple de usar para tus clientes.',
+    metric: 'PAGOS EN TIEMPO REAL',
     imageAlt: 'Plataforma Fintech',
     image: '/images/projects/fintech.webp',
     number: '01',
@@ -21,12 +22,13 @@ export const featuredProjects = [
   {
     id: 'analytics',
     cardClassName:
-      'sticky top-[120px] z-20 w-full max-w-[1240px] h-auto lg:h-[520px] rounded-xl overflow-hidden bg-[#faf9f5] shadow-[-12px_45px_rgba(0,0,0,0.16)] flex flex-col lg:flex-row transition-transform duration-300',
+      'w-full max-w-[1240px] h-auto lg:h-[520px] rounded-xl overflow-hidden bg-[#faf9f5] shadow-[-8px_24px_45px_rgba(0,0,0,0.10)] flex flex-col lg:flex-row transition-transform duration-300',
     icon: 'smart_toy',
     name: '02 · Sistema ERP & Automatización IA',
-    category: 'CASO DE ÉXITO · ENTERPRISE SAAS',
-    title: 'Plataforma cloud de telemetría y operaciones analíticas para corporaciones globales.',
-    metric: 'UPTIME 99.99%',
+    category: 'IDEA DE PROYECTO · EMPRESAS',
+    title:
+      'Un sistema de gestión con reportes e IA para ordenar la operación diaria de tu empresa.',
+    metric: 'REPORTES + IA',
     imageAlt: 'Sistema ERP Cloud',
     image: '/images/projects/analytics.webp',
     number: '02',
