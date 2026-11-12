@@ -20,7 +20,7 @@ export default function SiteFooter() {
           </div>
         </div>
         <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-space-lg">
-          <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-space-md">
+          <div className="flex flex-col items-start gap-3 sm:flex-row sm:items-center sm:gap-space-md">
             <img
               alt="TOPSET Software"
               className="h-8 w-auto"
@@ -33,7 +33,10 @@ export default function SiteFooter() {
               Software a medida · Argentina
             </span>
           </div>
-          <nav aria-label="Navegación del pie" className="flex flex-wrap items-center gap-space-lg">
+          <nav
+            aria-label="Navegación del pie"
+            className="flex flex-wrap items-center gap-x-space-md gap-y-0 sm:gap-x-space-lg"
+          >
             {navigation.map((item) => (
               <a
                 key={item.href}

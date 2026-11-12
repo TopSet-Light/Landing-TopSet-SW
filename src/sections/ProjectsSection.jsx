@@ -5,7 +5,8 @@ import DemoProjectCard from '../components/projects/DemoProjectCard.jsx';
 
 /**
  * Zig-zag reveal: each card slides in from its own side (left, right, left…)
- * when it enters the viewport. Without IntersectionObserver or with reduced
+ * when it enters the viewport. On large screens the cards also stack like a
+ * deck while scrolling (sticky, see projects.css). Without IntersectionObserver or with reduced
  * motion the cards are simply shown.
  */
 function useSlideIn(listRef) {
@@ -45,18 +46,17 @@ export default function ProjectsSection() {
       id="proyectos"
     >
       <div className="max-w-[1240px] mx-auto flex flex-col gap-space-2xl">
-        <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-space-lg pb-space-lg">
-          <div>
-            <h2 className="font-headline-lg text-headline-lg-mobile lg:text-headline-lg font-black text-[#0a0a0a] tracking-tight uppercase leading-none">
-              PROYECTOS QUE PODEMOS CREAR.
-            </h2>
-          </div>
+        <div className="projects-intro">
+          <p className="projects-eyebrow">Ideas a medida</p>
+          <h2 className="font-headline-lg text-headline-lg-mobile lg:text-headline-lg font-black text-[#0a0a0a] tracking-tight uppercase leading-none">
+            Lo que podemos crear para vos.
+          </h2>
           <p className="projects-lead">
-            No son trabajos entregados: son ideas de sistemas que podemos construir para distintos
-            rubros. Si alguno se parece a lo que necesitás, lo diseñamos a tu medida.
+            Todavía no son trabajos entregados: son ideas de sistemas que podemos construir para
+            distintos rubros. Si alguno se parece a lo que necesitás, lo diseñamos a tu medida.
           </p>
         </div>
-        <div ref={listRef} className="relative flex flex-col gap-10 pb-10 sm:gap-16 sm:pb-24">
+        <div ref={listRef} className="relative flex flex-col gap-10 sm:gap-16">
           {featuredProjects.map((project, index) => (
             <div className="project-slide" data-side={side(index)} key={project.id}>
               <FeaturedProjectCard project={project} flipped={index % 2 === 1} />
