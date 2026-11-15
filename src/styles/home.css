@@ -358,6 +358,18 @@ html {
   opacity: 1;
   transform: none;
 }
+@media (max-width: 767px) {
+  .home-page .demos-section.reveal > * {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  .demos-placeholder:not(.demos-error) {
+    /* Reserve the aspect ratio of the first demo's compact stage. */
+    aspect-ratio: 430 / 820;
+  }
+}
 /* Scroll cue at the bottom of the hero: invites the visitor down to projects */
 .home-page .hero-scroll-cue {
   position: absolute;
