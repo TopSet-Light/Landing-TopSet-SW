@@ -5,13 +5,32 @@ const WHITE = ['#ffffff', '#ffffff', '#ffffff'];
 
 /** Decorative canvas: no React updates per frame, paused outside the viewport. */
 export default function Particles({
-  particleColors = WHITE, particleCount = 200, particleSpread = 10,
-  speed = 0.1, particleBaseSize = 100, glow = 0.5, twinkle = 0.3,
-  moveParticlesOnHover = true, hoverEffect = 'parallax', sizeRandomness = 1,
-  shape = 'circle', depthOfField = 0, connections = false, connectionDistance = 110,
-  particleHoverFactor = 1, hoverRadius = 140, drift = 'none', driftSpeed = 1,
-  alphaParticles = false, disableRotation = false, cameraDistance = 20,
-  variation = 0, opacity = 1, clickBurst = true, intro = true, lightMode = false,
+  particleColors = WHITE,
+  particleCount = 200,
+  particleSpread = 10,
+  speed = 0.1,
+  particleBaseSize = 100,
+  glow = 0.5,
+  twinkle = 0.3,
+  moveParticlesOnHover = true,
+  hoverEffect = 'parallax',
+  sizeRandomness = 1,
+  shape = 'circle',
+  depthOfField = 0,
+  connections = false,
+  connectionDistance = 110,
+  particleHoverFactor = 1,
+  hoverRadius = 140,
+  drift = 'none',
+  driftSpeed = 1,
+  alphaParticles = false,
+  disableRotation = false,
+  cameraDistance = 20,
+  variation = 0,
+  opacity = 1,
+  clickBurst = true,
+  intro = true,
+  lightMode = false,
 }) {
   const canvasRef = useRef(null);
 
@@ -26,12 +45,19 @@ export default function Particles({
     const motion = window.matchMedia('(prefers-reduced-motion: reduce)');
     const colors = particleColors.length ? particleColors : WHITE;
     const particles = Array.from({ length: Math.min(1000, Math.max(0, particleCount)) }, () => ({
-      x: (Math.random() - 0.5) * 2, y: (Math.random() - 0.5) * 2,
-      z: Math.random(), phase: Math.random() * Math.PI * 2,
+      x: (Math.random() - 0.5) * 2,
+      y: (Math.random() - 0.5) * 2,
+      z: Math.random(),
+      phase: Math.random() * Math.PI * 2,
       size: 1 - sizeRandomness * Math.random() * 0.8,
       color: colors[Math.floor(Math.random() * colors.length)],
     }));
-    let width = 1, height = 1, frame = 0, lastTime = 0, elapsed = 0, visible = true;
+    let width = 1,
+      height = 1,
+      frame = 0,
+      lastTime = 0,
+      elapsed = 0,
+      visible = true;
     const pointer = { x: 0, y: 0 };
     const offset = { x: 0, y: 0 };
     let burst = null;
@@ -45,7 +71,10 @@ export default function Particles({
       const angle = disableRotation ? 0 : time * 0.035;
       const projected = [];
       for (const particle of particles) {
-        const perspective = Math.max(0.3, cameraDistance / (cameraDistance + particle.z * particleSpread));
+        const perspective = Math.max(
+          0.3,
+          cameraDistance / (cameraDistance + particle.z * particleSpread),
+        );
         const rotatedX = particle.x * Math.cos(angle) - particle.y * Math.sin(angle);
         const rotatedY = particle.x * Math.sin(angle) + particle.y * Math.cos(angle);
         const parallax = moveParticlesOnHover && hoverEffect === 'parallax' && !motion.matches;
@@ -57,21 +86,25 @@ export default function Particles({
           x += offset.x * 28 * perspective * particleHoverFactor;
           y += offset.y * 28 * perspective * particleHoverFactor;
         }
-        if (drift !== 'none') y = ((y + elapsed * driftSpeed * 8) % height + height) % height;
+        if (drift !== 'none') y = (((y + elapsed * driftSpeed * 8) % height) + height) % height;
         if (burst && !motion.matches) {
           const age = elapsed - burst.time;
-          const dx = x - burst.x, dy = y - burst.y;
+          const dx = x - burst.x,
+            dy = y - burst.y;
           const distance = Math.hypot(dx, dy);
           if (age < 1.2 && distance < hoverRadius * 2 && distance > 0) {
-            const force = Math.sin(age / 1.2 * Math.PI) * 55 * (1 - distance / (hoverRadius * 2));
-            x += dx / distance * force;
-            y += dy / distance * force;
+            const force = Math.sin((age / 1.2) * Math.PI) * 55 * (1 - distance / (hoverRadius * 2));
+            x += (dx / distance) * force;
+            y += (dy / distance) * force;
           }
         }
-        const radius = Math.max(0.4, particleBaseSize / 100 * (1 + particle.size) * perspective);
+        const radius = Math.max(0.4, (particleBaseSize / 100) * (1 + particle.size) * perspective);
         const shimmer = 1 - twinkle * (0.5 + Math.sin(time * 3 + particle.phase) * 0.5);
         const entrance = intro && !motion.matches ? Math.min(1, elapsed / 1.2) : 1;
-        context.globalAlpha = Math.max(0, Math.min(1, opacity * shimmer * entrance * (alphaParticles ? perspective : 1)));
+        context.globalAlpha = Math.max(
+          0,
+          Math.min(1, opacity * shimmer * entrance * (alphaParticles ? perspective : 1)),
+        );
         context.fillStyle = lightMode && particle.color === '#ffffff' ? '#272334' : particle.color;
         context.shadowColor = context.fillStyle;
         context.shadowBlur = glow * 12 + depthOfField * particle.z * 5;
@@ -86,11 +119,15 @@ export default function Particles({
         context.strokeStyle = lightMode ? '#272334' : colors[0];
         for (let i = 0; i < projected.length; i++) {
           for (let j = i + 1; j < projected.length; j++) {
-            const a = projected[i], b = projected[j];
+            const a = projected[i],
+              b = projected[j];
             const distance = Math.hypot(a.x - b.x, a.y - b.y);
             if (distance >= connectionDistance) continue;
             context.globalAlpha = (1 - distance / connectionDistance) * 0.15 * opacity;
-            context.beginPath(); context.moveTo(a.x, a.y); context.lineTo(b.x, b.y); context.stroke();
+            context.beginPath();
+            context.moveTo(a.x, a.y);
+            context.lineTo(b.x, b.y);
+            context.stroke();
           }
         }
       }
@@ -109,9 +146,11 @@ export default function Particles({
     }
     function resize() {
       const bounds = host.getBoundingClientRect();
-      width = Math.max(1, bounds.width); height = Math.max(1, bounds.height);
+      width = Math.max(1, bounds.width);
+      height = Math.max(1, bounds.height);
       const ratio = Math.min(window.devicePixelRatio || 1, 2);
-      canvas.width = Math.round(width * ratio); canvas.height = Math.round(height * ratio);
+      canvas.width = Math.round(width * ratio);
+      canvas.height = Math.round(height * ratio);
       context.setTransform(ratio, 0, 0, ratio, 0, 0);
       draw(0);
     }
@@ -121,7 +160,10 @@ export default function Particles({
       pointer.x = (event.clientX - bounds.left) / width - 0.5;
       pointer.y = (event.clientY - bounds.top) / height - 0.5;
     }
-    function leave() { pointer.x = 0; pointer.y = 0; }
+    function leave() {
+      pointer.x = 0;
+      pointer.y = 0;
+    }
     function burstOnClick(event) {
       if (!clickBurst || motion.matches || event.target.closest('a, button')) return;
       const bounds = host.getBoundingClientRect();
@@ -139,20 +181,50 @@ export default function Particles({
     surface.addEventListener('click', burstOnClick);
     document.addEventListener('visibilitychange', syncAnimation);
     motion.addEventListener('change', syncAnimation);
-    resize(); syncAnimation();
+    resize();
+    syncAnimation();
     return () => {
       cancelAnimationFrame(frame);
-      resizeObserver.disconnect(); intersectionObserver.disconnect();
+      resizeObserver.disconnect();
+      intersectionObserver.disconnect();
       surface.removeEventListener('pointermove', move);
       surface.removeEventListener('pointerleave', leave);
       surface.removeEventListener('click', burstOnClick);
       document.removeEventListener('visibilitychange', syncAnimation);
       motion.removeEventListener('change', syncAnimation);
     };
-  }, [particleColors, particleCount, particleSpread, speed, particleBaseSize, glow, twinkle,
-    moveParticlesOnHover, hoverEffect, sizeRandomness, shape, depthOfField, connections,
-    connectionDistance, particleHoverFactor, hoverRadius, drift, driftSpeed, alphaParticles,
-    disableRotation, cameraDistance, variation, opacity, clickBurst, intro, lightMode]);
+  }, [
+    particleColors,
+    particleCount,
+    particleSpread,
+    speed,
+    particleBaseSize,
+    glow,
+    twinkle,
+    moveParticlesOnHover,
+    hoverEffect,
+    sizeRandomness,
+    shape,
+    depthOfField,
+    connections,
+    connectionDistance,
+    particleHoverFactor,
+    hoverRadius,
+    drift,
+    driftSpeed,
+    alphaParticles,
+    disableRotation,
+    cameraDistance,
+    variation,
+    opacity,
+    clickBurst,
+    intro,
+    lightMode,
+  ]);
 
-  return <div className="particles" aria-hidden="true"><canvas ref={canvasRef} /></div>;
+  return (
+    <div className="particles" aria-hidden="true">
+      <canvas ref={canvasRef} />
+    </div>
+  );
 }
