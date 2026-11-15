@@ -282,6 +282,11 @@ html {
   background: rgba(255, 255, 255, 0.04);
   border: 1px solid rgba(255, 255, 255, 0.08);
 }
+.demos-placeholder > [role='status'] {
+  padding: 20px;
+  text-align: center;
+  color: rgba(229, 226, 225, 0.72);
+}
 .demos-error {
   display: flex;
   flex-direction: column;
