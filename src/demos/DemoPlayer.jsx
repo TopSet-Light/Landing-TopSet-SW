@@ -10,7 +10,7 @@ import {
 import tallerDemo from './taller/tallerDemo.js';
 import turneroDemo from './turnero/turneroDemo.js';
 import { estimateStep, runScript } from './runScript.js';
-import './demo-player.css';
+import { DemoStepSummary, DemoWindow } from './DemoChrome.jsx';
 
 const DEMOS = [tallerDemo, turneroDemo];
 
@@ -19,51 +19,12 @@ const DEMOS = [tallerDemo, turneroDemo];
  * In "tour" mode a fake cursor plays each step's script; any real click on the
  * app (or the "Tocalo vos" button) hands control to the visitor.
  */
-export default function DemoPlayer() {
-  const [demoIndex, setDemoIndex] = useState(0);
+export default function DemoPlayer({ selectedId, onSelect }) {
+  const demoIndex = DEMOS.findIndex((item) => item.id === selectedId);
   const demo = DEMOS[demoIndex];
-  const goToNextDemo = useCallback(() => setDemoIndex((index) => (index + 1) % DEMOS.length), []);
-  return (
-    <div className="demo-showcase">
-      <div className="demo-picker" role="tablist" aria-label="Elegí qué sistema probar">
-        {DEMOS.map((item, index) => (
-          <button
-            key={item.id}
-            type="button"
-            role="tab"
-            id={`demo-tab-${item.id}`}
-            aria-selected={index === demoIndex}
-            aria-controls="demo-panel"
-            className={`demo-pick${index === demoIndex ? ' is-active' : ''}`}
-            style={{ '--demo-accent': item.accent }}
-            onClick={() => setDemoIndex(index)}
-          >
-            <span className="demo-pick-icon material-symbols-outlined" aria-hidden="true">
-              {item.icon}
-            </span>
-            <span className="demo-pick-text">
-              <span className="demo-pick-kicker">
-                {String(index + 1).padStart(2, '0')} · {item.label}
-              </span>
-              <strong>{item.name}</strong>
-              <span className="demo-pick-summary">{item.summary}</span>
-            </span>
-            <span className="demo-pick-state" aria-hidden="true">
-              {index === demoIndex ? 'En pantalla' : 'Ver demo →'}
-            </span>
-          </button>
-        ))}
-      </div>
-      <div id="demo-panel" role="tabpanel" aria-labelledby={`demo-tab-${demo.id}`}>
-        <DemoStage
-          key={demo.id}
-          demo={demo}
-          nextDemo={DEMOS.length > 1 ? DEMOS[(demoIndex + 1) % DEMOS.length] : null}
-          onNextDemo={goToNextDemo}
-        />
-      </div>
-    </div>
-  );
+  const nextDemo = DEMOS[(demoIndex + 1) % DEMOS.length];
+  const goToNextDemo = useCallback(() => onSelect(nextDemo.id), [nextDemo, onSelect]);
+  return <DemoStage key={demo.id} demo={demo} nextDemo={nextDemo} onNextDemo={goToNextDemo} />;
 }
 
 function prefersReducedMotion() {
@@ -207,65 +168,52 @@ function DemoStage({ demo, nextDemo, onNextDemo }) {
 
   return (
     <div className="demo-player" ref={rootRef}>
-      <div className="demo-window" style={{ '--demo-accent': demo.accent }}>
-        <div className="demo-window-bar" aria-hidden="true">
-          <span />
-          <span />
-          <span />
-          <p>{demo.url}</p>
-        </div>
+      <DemoWindow
+        demo={demo}
+        frameRef={frameRef}
+        frameStyle={{ height: scale ? stageHeight * scale : undefined }}
+      >
         <div
-          className="demo-frame"
-          ref={frameRef}
-          style={{ height: scale ? stageHeight * scale : undefined }}
+          className={`demo-stage${mode === 'tour' ? ' is-touring' : ''}`}
+          style={{
+            width: stageWidth,
+            height: stageHeight,
+            transform: `scale(${scale || 0.001})`,
+          }}
+          onPointerDownCapture={takeControl}
+          ref={appRef}
         >
-          <div
-            className={`demo-stage${mode === 'tour' ? ' is-touring' : ''}`}
-            style={{
-              width: stageWidth,
-              height: stageHeight,
-              transform: `scale(${scale || 0.001})`,
-            }}
-            onPointerDownCapture={takeControl}
-            ref={appRef}
-          >
-            <App state={state} dispatch={dispatch} compact={compact} />
-            {mode === 'tour' && (
-              <div
-                className={`demo-cursor${clicking ? ' is-clicking' : ''}`}
-                style={{ transform: `translate(${cursor.x}px, ${cursor.y}px)` }}
-                aria-hidden="true"
-              >
-                <svg viewBox="0 0 24 24" width="26" height="26">
-                  <path
-                    d="M5 3l14 8.2-6.3 1.5L10 19z"
-                    fill="#111"
-                    stroke="#fff"
-                    strokeWidth="1.6"
-                    strokeLinejoin="round"
-                  />
-                </svg>
-              </div>
-            )}
-          </div>
+          <App state={state} dispatch={dispatch} compact={compact} />
+          {mode === 'tour' && (
+            <div
+              className={`demo-cursor${clicking ? ' is-clicking' : ''}`}
+              style={{ transform: `translate(${cursor.x}px, ${cursor.y}px)` }}
+              aria-hidden="true"
+            >
+              <svg viewBox="0 0 24 24" width="26" height="26">
+                <path
+                  d="M5 3l14 8.2-6.3 1.5L10 19z"
+                  fill="#111"
+                  stroke="#fff"
+                  strokeWidth="1.6"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </div>
+          )}
         </div>
-      </div>
+      </DemoWindow>
 
       <div className="demo-bar">
-        <div className="demo-step" aria-live="polite">
-          <span className="demo-step-number">
-            <small>Paso</small>
-            {String(safeStep + 1).padStart(2, '0')}
-          </span>
-          <span className="demo-step-text">
-            <strong>{mode === 'tour' ? current.title : 'Ahora probalo vos.'}</strong>
-            <span>
-              {mode === 'tour'
-                ? current.caption
-                : 'Hacé clic en la demo y navegala libremente. Los datos son de ejemplo.'}
-            </span>
-          </span>
-        </div>
+        <DemoStepSummary
+          step={safeStep}
+          title={mode === 'tour' ? current.title : 'Ahora probalo vos.'}
+          caption={
+            mode === 'tour'
+              ? current.caption
+              : 'Hacé clic en la demo y navegala libremente. Los datos son de ejemplo.'
+          }
+        />
 
         <div className="demo-controls">
           <div className="demo-progress" aria-label="Pasos del recorrido">

@@ -1,17 +1,13 @@
-import { lazy, Suspense, useEffect, useRef, useState } from 'react';
+import { lazy, Suspense, useCallback, useEffect, useRef, useState } from 'react';
 import ErrorBoundary from '../components/ui/ErrorBoundary.jsx';
 import loadDemoPlayer from '../demos/loadDemoPlayer.js';
+import demos from '../demos/demoCatalog.js';
+import DemoPicker from '../demos/DemoPicker.jsx';
+import DemoPlaceholder from '../demos/DemoChrome.jsx';
+import '../demos/demo-player.css';
 
 // Render the separate player chunk only when the visitor gets close.
 const DemoPlayer = lazy(loadDemoPlayer);
-
-function DemoPlaceholder({ loading = false }) {
-  return (
-    <div className="demos-placeholder" aria-hidden={loading ? undefined : true}>
-      {loading && <p role="status">Cargando demos interactivas…</p>}
-    </div>
-  );
-}
 
 // Shown when the demos chunk fails to download or the player crashes, so the
 // rest of the landing (contact form included) keeps working.
@@ -38,6 +34,14 @@ function DemoError() {
 export default function DemosSection() {
   const ref = useRef(null);
   const [near, setNear] = useState(typeof IntersectionObserver === 'undefined');
+  const [selectedId, setSelectedId] = useState(demos[0].id);
+  const demoIndex = demos.findIndex((item) => item.id === selectedId);
+  const demo = demos[demoIndex];
+  const nextDemo = demos[(demoIndex + 1) % demos.length];
+  const selectDemo = useCallback((id) => {
+    setSelectedId(id);
+    setNear(true);
+  }, []);
 
   useEffect(() => {
     if (near || !ref.current) return undefined;
@@ -71,15 +75,32 @@ export default function DemosSection() {
             recorrido o tocá la pantalla y probalos como si fueran tuyos.
           </p>
         </div>
-        {near ? (
-          <ErrorBoundary fallback={<DemoError />}>
-            <Suspense fallback={<DemoPlaceholder loading />}>
-              <DemoPlayer />
-            </Suspense>
-          </ErrorBoundary>
-        ) : (
-          <DemoPlaceholder />
-        )}
+        <div className="demo-showcase">
+          <DemoPicker selectedId={selectedId} onSelect={selectDemo} />
+          <div
+            id="demo-panel"
+            className="demo-panel"
+            role="tabpanel"
+            aria-labelledby={`demo-tab-${selectedId}`}
+            style={{
+              '--demo-accent': demo.accent,
+              '--demo-stage-ratio': `${demo.stage.width} / ${demo.stage.height}`,
+              '--demo-compact-ratio': `${demo.compactStage.width} / ${demo.compactStage.height}`,
+              '--demo-preview-steps': demo.previewStepCount,
+              '--demo-compact-preview-steps': demo.compactPreviewStepCount,
+            }}
+          >
+            {near ? (
+              <ErrorBoundary fallback={<DemoError />}>
+                <Suspense fallback={<DemoPlaceholder demo={demo} nextDemo={nextDemo} />}>
+                  <DemoPlayer selectedId={selectedId} onSelect={selectDemo} />
+                </Suspense>
+              </ErrorBoundary>
+            ) : (
+              <DemoPlaceholder demo={demo} nextDemo={nextDemo} />
+            )}
+          </div>
+        </div>
       </div>
     </section>
   );
