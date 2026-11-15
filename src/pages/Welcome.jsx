@@ -46,7 +46,7 @@ export default function Welcome({ launching, error, onEnter, onIntent, onFlightE
         onFlightEnd={onFlightEnd}
         onIntent={onIntent}
       >
-        Take off
+        ¡Comencemos!
       </FlyingButton>
       <p className="intro-status" role="status" aria-live="polite">
         {error ||

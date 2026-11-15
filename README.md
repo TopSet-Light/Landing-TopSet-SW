@@ -8,7 +8,7 @@ El proyecto explora transiciones CSS, tipografía adaptable y composición de in
 
 Después de iniciar el servidor, abrí [la demo local](http://127.0.0.1:5173). Si ese puerto está ocupado, usá la dirección que indique Vite.
 
-1. Pasá el cursor sobre **Take off**, o enfocá el botón con Tab. En pantallas táctiles el botón no se eleva al tocarlo: el toque despega directo.
+1. Pasá el cursor sobre **¡Comencemos!**, o enfocá el botón con Tab. En pantallas táctiles el botón no se eleva al tocarlo: el toque despega directo.
 2. Hacé clic, tocá el botón o activalo con el teclado para entrar.
 3. Recorré Proyectos, Sobre nosotros y Contacto.
 4. Al refrescar vuelve a aparecer la bienvenida. Si la URL contiene un hash, su sección se abre después del despegue.
