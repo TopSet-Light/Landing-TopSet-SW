@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import loadDemoPlayer from '../demos/loadDemoPlayer.js';
 import createPageLoader from '../utils/createPageLoader.js';
 
 const prepareHome = createPageLoader(() => import('../pages/Home.jsx'));
@@ -34,6 +35,7 @@ export default function useWelcomeTransition() {
         setLaunching(false);
         setFlightDone(false);
       });
+    loadDemoPlayer().catch(() => {});
   }
   useEffect(() => {
     if (Home && flightDone) setEntered(true);

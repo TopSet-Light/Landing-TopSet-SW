@@ -1,11 +1,16 @@
 import { lazy, Suspense, useEffect, useRef, useState } from 'react';
 import ErrorBoundary from '../components/ui/ErrorBoundary.jsx';
+import loadDemoPlayer from '../demos/loadDemoPlayer.js';
 
-// The demos are a separate chunk: they only download when the visitor gets close.
-const DemoPlayer = lazy(() => import('../demos/DemoPlayer.jsx'));
+// Render the separate player chunk only when the visitor gets close.
+const DemoPlayer = lazy(loadDemoPlayer);
 
-function DemoPlaceholder() {
-  return <div className="demos-placeholder" aria-hidden="true" />;
+function DemoPlaceholder({ loading = false }) {
+  return (
+    <div className="demos-placeholder" aria-hidden={loading ? undefined : true}>
+      {loading && <p role="status">Cargando demos interactivas…</p>}
+    </div>
+  );
 }
 
 // Shown when the demos chunk fails to download or the player crashes, so the
@@ -68,7 +73,7 @@ export default function DemosSection() {
         </div>
         {near ? (
           <ErrorBoundary fallback={<DemoError />}>
-            <Suspense fallback={<DemoPlaceholder />}>
+            <Suspense fallback={<DemoPlaceholder loading />}>
               <DemoPlayer />
             </Suspense>
           </ErrorBoundary>
