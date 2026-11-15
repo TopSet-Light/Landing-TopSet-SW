@@ -15,6 +15,7 @@ describe('DemosSection when the demos fail to load', () => {
     render(<Home />);
 
     expect(await screen.findByText(/no pudimos cargar las demos/i)).toBeTruthy();
+    expect(screen.getAllByRole('tab')).toHaveLength(2);
     expect(screen.getByRole('button', { name: /recargar/i })).toBeTruthy();
     expect(screen.getByRole('form', { name: /formulario de contacto/i })).toBeTruthy();
     expect(document.getElementById('sobre-nosotros')).not.toBeNull();

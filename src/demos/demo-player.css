@@ -1,4 +1,7 @@
 /* Shell around the demo apps: browser-like window + tour bar (landing styles). */
+.demo-panel {
+  container: demo-panel / inline-size;
+}
 .demo-player {
   width: 100%;
   border-radius: 18px;
@@ -41,7 +44,90 @@
 .demo-frame {
   position: relative;
   width: 100%;
+  aspect-ratio: var(--demo-stage-ratio);
   overflow: hidden;
+}
+/* Match DemoStage's width-based compact breakpoint, even inside page gutters. */
+@container demo-panel (width < 700px) {
+  .demo-frame {
+    aspect-ratio: var(--demo-compact-ratio);
+  }
+}
+
+/* Static loading surface, shared by the observer gate and Suspense. */
+.demo-skeleton {
+  position: absolute;
+  inset: 0;
+  padding: 20px;
+  background: #f3f4f7;
+}
+.demo-skeleton-header {
+  height: 48px;
+  margin: -20px -20px 28px;
+  background: #202c43;
+}
+.demo-skeleton-title {
+  width: 45%;
+  height: 24px;
+  margin-bottom: 20px;
+  border-radius: 6px;
+  background: #d9dfe8;
+}
+.demo-skeleton-action {
+  height: 38px;
+  margin-bottom: 20px;
+  border-radius: 6px;
+  background: #c8d2e4;
+}
+.demo-skeleton-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+.demo-skeleton-grid span {
+  height: 96px;
+  border: 1px solid #e0e4eb;
+  border-radius: 8px;
+  background: #fff;
+}
+.demo-loading-status {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  right: 12px;
+  margin: 0;
+  color: #fff;
+  font-size: 13px;
+  text-align: center;
+}
+.demo-loading .demo-bar {
+  position: relative;
+}
+.demo-loading .demo-bar > * {
+  visibility: hidden;
+}
+.demo-loading .demo-bar::after {
+  content: '';
+  position: absolute;
+  inset: 18px 16px;
+  border-radius: 8px;
+  background:
+    linear-gradient(#dcdfe5 0 0) left top / 55% 14px no-repeat,
+    linear-gradient(#e2e4e9 0 0) left 24px / 80% 10px no-repeat;
+}
+.demo-loading-progress {
+  width: calc(var(--demo-preview-steps) * 35px - 5px);
+  height: 14px;
+}
+@media (max-width: 900px) {
+  .demo-loading-progress {
+    width: calc(var(--demo-preview-steps) * 25px - 5px);
+  }
+}
+@container demo-panel (width < 700px) {
+  .demo-loading-progress {
+    width: calc(var(--demo-compact-preview-steps) * 25px - 5px);
+  }
 }
 .demo-stage {
   position: absolute;
@@ -237,6 +323,8 @@
   .demo-picker {
     grid-template-columns: 1fr;
     gap: 10px;
+    /* Isolate the picker for the first mobile paint while scrolling into Demos. */
+    transform: translateZ(0);
   }
   .demo-pick {
     padding: 14px 16px;

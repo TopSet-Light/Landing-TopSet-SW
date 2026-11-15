@@ -1,4 +1,5 @@
 import TurneroApp from './TurneroApp.jsx';
+import { turneroInfo } from '../demoCatalog.js';
 
 /** Datos ficticios basados en el Figma "Turnero · Chatbot web · UX" (Kine). */
 export const SERVICES = ['Kinesiología', 'Plantillas ortopédicas', 'RPG'];
@@ -102,8 +103,7 @@ export function reducer(state, action) {
 /** Recorrido guiado: reserva autogestionada, agenda en vivo, recordatorio, cancelación y cupos. */
 export const steps = [
   {
-    title: 'Tus pacientes sacan turno solos.',
-    caption: 'Desde la web o WhatsApp, a cualquier hora. Se identifican con su DNI.',
+    ...turneroInfo.intro,
     script: [
       { wait: 900 },
       { click: 'sacar-turno', act: { type: 'PHONE', screen: 'dni' } },
@@ -167,16 +167,7 @@ export const steps = [
 ];
 
 export default {
-  id: 'turnero',
-  label: 'Turnero',
-  name: 'Turnos online para consultorios',
-  summary: 'Reservas 24/7, agenda del profesional y recordatorios automáticos.',
-  icon: 'calendar_month',
-  url: 'turnos.kine.com.ar',
-  accent: '#146b5d',
-  stage: { width: 1240, height: 760 },
-  compactStage: { width: 430, height: 760 },
-  compactBreakpoint: 700,
+  ...turneroInfo,
   initialState,
   reducer,
   steps,

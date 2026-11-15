@@ -282,11 +282,6 @@ html {
   background: rgba(255, 255, 255, 0.04);
   border: 1px solid rgba(255, 255, 255, 0.08);
 }
-.demos-placeholder > [role='status'] {
-  padding: 20px;
-  text-align: center;
-  color: rgba(229, 226, 225, 0.72);
-}
 .demos-error {
   display: flex;
   flex-direction: column;
@@ -368,11 +363,6 @@ html {
     opacity: 1;
     transform: none;
     transition: none;
-  }
-
-  .demos-placeholder:not(.demos-error) {
-    /* Reserve the aspect ratio of the first demo's compact stage. */
-    aspect-ratio: 430 / 820;
   }
 }
 /* Scroll cue at the bottom of the hero: invites the visitor down to projects */

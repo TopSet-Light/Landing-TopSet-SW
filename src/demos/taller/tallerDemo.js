@@ -1,4 +1,5 @@
 import TallerApp from './TallerApp.jsx';
+import { tallerInfo } from '../demoCatalog.js';
 
 /** Datos ficticios basados en el Figma "SaaS Taller" (MVP escritorio). */
 export const STATUSES = [
@@ -217,8 +218,7 @@ export function reducer(state, action) {
 /** Recorrido guiado: funcionalidades principales del MVP (recorridos A, B y C del Figma). */
 export const steps = [
   {
-    title: 'Todo el taller, de un vistazo.',
-    caption: 'Autos en el taller, entregas pendientes y saldos apenas abrís el día.',
+    ...tallerInfo.intro,
     script: [{ wait: 1800 }, { click: 'nuevo-ingreso', act: { type: 'GO', screen: 'ingreso' } }],
   },
   {
@@ -281,16 +281,7 @@ export const steps = [
 ];
 
 export default {
-  id: 'taller',
-  label: 'Taller',
-  name: 'Gestión de taller mecánico',
-  summary: 'Ingreso de autos, diagnóstico, presupuesto por WhatsApp y cobro.',
-  icon: 'car_repair',
-  url: 'taller.topset.com.ar',
-  accent: '#1d4ed8',
-  stage: { width: 1240, height: 760 },
-  compactStage: { width: 430, height: 820 },
-  compactBreakpoint: 700,
+  ...tallerInfo,
   initialState,
   reducer,
   steps,
