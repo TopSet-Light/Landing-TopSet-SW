@@ -421,13 +421,15 @@ html {
     height: 28px;
   }
 }
-/* Hero content eases out while scrolling toward projects (progressive enhancement) */
+/* Fade out the hero while scrolling on wider screens. */
 @supports (animation-timeline: scroll()) {
-  .home-page .hero-section > .relative,
-  .home-page .hero-scroll-cue {
-    animation: hero-scroll-out linear both;
-    animation-timeline: scroll(root block);
-    animation-range: 0 70svh;
+  @media (min-width: 768px) {
+    .home-page .hero-section > .relative,
+    .home-page .hero-scroll-cue {
+      animation: hero-scroll-out linear both;
+      animation-timeline: scroll(root block);
+      animation-range: 0 70svh;
+    }
   }
   @keyframes hero-scroll-out {
     to {
