@@ -50,9 +50,7 @@ export default function FeaturedProjectCard({ project, flipped = false }) {
           width={1200}
           height={900}
         />
-        <span className="absolute bottom-5 right-7 font-headline-xl font-black text-white/90 text-7xl sm:text-8xl leading-none select-none pointer-events-none drop-shadow-md">
-          {project.number}
-        </span>
+        <span className="project-card-number">{project.number}</span>
       </div>
     </article>
   );
