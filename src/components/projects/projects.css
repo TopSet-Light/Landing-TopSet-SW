@@ -46,8 +46,11 @@
   justify-content: space-between;
   gap: 12px;
   font:
-    500 13px/1.5 'Inter',
-    sans-serif;
+    700 11px/1.375 'Space Mono',
+    monospace;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: #0a0a0a;
 }
 .demo-badge {
   border: 1px solid #ccc;
@@ -60,17 +63,30 @@
 }
 .demo-project-category {
   font:
-    11px 'Space Mono',
+    700 11px/1.2 'Space Mono',
     monospace;
-  color: #62625b;
+  letter-spacing: 0.1em;
+  color: #484946;
   text-transform: uppercase;
-  margin-bottom: 14px;
+  margin-bottom: 4px;
 }
+/* Same title scale as the featured cards (24 / 30 / 36px) */
 .demo-project-copy h3 {
   font:
-    500 clamp(25px, 2.4vw, 36px)/1.15 'Space Grotesk',
+    700 24px/1.15 'Space Grotesk',
     sans-serif;
-  letter-spacing: -0.04em;
+  letter-spacing: -0.02em;
+  color: #0a0a0a;
+}
+@media (min-width: 640px) {
+  .demo-project-copy h3 {
+    font-size: 30px;
+  }
+}
+@media (min-width: 1024px) {
+  .demo-project-copy h3 {
+    font-size: 36px;
+  }
 }
 .demo-project-description {
   font:
@@ -265,15 +281,24 @@
     monospace;
   color: #666;
 }
-.demo-project-number {
+/* Big card number, shared by the featured and the demo cards */
+.project-card-number {
   position: absolute;
-  bottom: 16px;
-  right: 24px;
+  bottom: 20px;
+  right: 28px;
+  z-index: 1;
   font:
-    500 58px 'Space Grotesk',
+    700 72px/1 'Space Grotesk',
     sans-serif;
-  color: #ffffff65;
-  letter-spacing: -0.08em;
+  color: rgba(255, 255, 255, 0.9);
+  filter: drop-shadow(0 4px 3px rgba(0, 0, 0, 0.07)) drop-shadow(0 2px 2px rgba(0, 0, 0, 0.06));
+  pointer-events: none;
+  user-select: none;
+}
+@media (min-width: 640px) {
+  .project-card-number {
+    font-size: 96px;
+  }
 }
 /* Zig-zag layout: every other card puts the art on the left */
 @media (min-width: 768px) {
@@ -285,10 +310,6 @@
   }
   .demo-project-card.is-flipped:hover .demo-browser {
     transform: perspective(1000px) rotateY(3deg) rotateZ(-1deg);
-  }
-  .demo-project-card.is-flipped .demo-project-number {
-    right: auto;
-    left: 24px;
   }
 }
 

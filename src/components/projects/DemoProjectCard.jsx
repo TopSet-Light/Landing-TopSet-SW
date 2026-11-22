@@ -10,7 +10,7 @@ export default function DemoProjectCard({ project, index, flipped = false }) {
     >
       <div className="demo-project-copy">
         <div className="demo-project-label">
-          <span>{`${number} / ${project.name}`}</span>
+          <span>{`${number} · ${project.name}`}</span>
           <span className="demo-badge">IDEA</span>
         </div>
         <div>
@@ -73,7 +73,7 @@ export default function DemoProjectCard({ project, index, flipped = false }) {
             </div>
           </div>
         </div>
-        <span className="demo-project-number">{number}</span>
+        <span className="project-card-number">{number}</span>
       </div>
     </article>
   );
